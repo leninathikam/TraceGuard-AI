@@ -5,7 +5,7 @@ Deadline: **Friday, October 30, 2026, 10:00 AM Pacific.** Judging runs Dec 1–1
 
 | Requirement (from the rules) | Status | Evidence / action |
 | --- | --- | --- |
-| Runs on Nebius Token Factory or AI Cloud: "makes a runtime call to the Token Factory inference API" | Built; **live call not yet verified** | `nebius.py` calls `api.tokenfactory.nebius.com/v1/chat/completions`. Verify with `GET /api/nebius/check` and one hybrid diagnosis once `NEBIUS_API_KEY` is set. |
+| Runs on Nebius Token Factory or AI Cloud: "makes a runtime call to the Token Factory inference API" | Verified live 2026-10-25 | `nebius.py` calls `api.tokenfactory.nebius.com/v1/chat/completions`; `scripts/check_nebius.py` and the benchmark ran against it (≈110 Nemotron calls). |
 | Uses at least one NVIDIA open-source model | Built | Default `nvidia/nemotron-3-super-120b-a12b`; model ID logged on every diagnosis. |
 | Fits a track (Coding and Agentic Engineering: "agents that write, run, and test code in Token Factory") | Yes | Nemotron writes the repair (config or Python), TraceGuard runs it and tests it (Scenario C runs visible + held-out unit tests). |
 | Stage One pass/fail: genuine attempt at the track, applies the required APIs | Yes, once the live call is verified | — |

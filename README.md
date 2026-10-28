@@ -90,23 +90,35 @@ tests as a regression.
 traces — 17 structural, 3 semantic (no rule can see them), 4 healthy and 2 tricky (healthy but
 suspicious-looking) — plus the Verified Repair Loop on the three scenarios, for each mode.
 
-**Measured results so far (rules only, 2026-10-25):**
+**Measured results, live on Nebius Token Factory with `nvidia/nemotron-3-super-120b-a12b`
+(2026-10-25, current prompt, `results/evaluation.json`):**
 
-| Metric | Rules only |
-| --- | --- |
-| Root-cause accuracy (26 cases) | 81% (21/26) |
-| Accuracy: structural / semantic / healthy / tricky | 100% / 0% / 100% / 0% |
-| Failure detection precision / recall | 89% / 85% (TP 17, FP 2, FN 3) |
-| Category-level detection precision / recall | 91% / 87% |
-| Median latency | < 1 ms |
-| Verified repairs | 0/3 (rules cannot author patches, by design) |
+| Metric | A · Rules only | B · Nemotron only | C · Hybrid |
+| --- | --- | --- | --- |
+| Root-cause accuracy (26 cases) | 81% | 73% | **92%** |
+| Structural / semantic / healthy / tricky | 100 / 0 / 100 / 0% | 65 / 100 / 100 / 50% | 88 / 100 / 100 / 100% |
+| Failure detection precision / recall | 89% / 85% | 94% / 85% | **100% / 100%** |
+| Median latency per diagnosis | < 1 ms | 7.7 s | 5.9 s |
+| Mean cost per diagnosis | $0 | $0.00099 | $0.00093 |
+| Verified repairs (3 scenarios) | 0/3 (cannot author patches) | 2/3 | 2/3 |
 
-The rules miss all three semantic cases and flag both tricky cases (a correctly handled transient 503,
-and an article that merely *mentions* prompt injection). That is the gap Nemotron is meant to close.
+What the numbers say:
+- Rules are perfect on structural failures but blind to the 3 semantic cases and fooled by both
+  tricky ones (a correctly handled transient 503; an article that merely *mentions* prompt injection).
+- Nemotron alone catches every semantic case but mislabels structural ones it has no schema
+  checker for.
+- Hybrid gets the best of both: it keeps the rules' structural precision, adds semantic coverage,
+  and correctly overrules both rule false alarms.
+- Repairs for the tool-calling and research agents validated in every run. The coding repair is
+  nondeterministic: in three hybrid runs it validated twice and once regressed a held-out test, which
+  the loop caught and reported as `failed`. That is the loop doing its job, not a pass.
 
-**Nemotron-only and hybrid results have not been measured yet** — they require `NEBIUS_API_KEY`.
-Run the benchmark with a key and replace this paragraph with the numbers from
-`results/evaluation.json`. Do not publish model numbers that were not produced by an actual run.
+**Earlier run, before category definitions were added to the prompt**
+(`results/evaluation-run1-undefined-categories.json`): rules 81%, Nemotron only 88%, hybrid 69%
+root-cause accuracy; verified repairs 2/3 (Nemotron only) and 3/3 (hybrid). Hybrid understood the
+failures but chose wrong labels; one-line category definitions plus "keep the rule root unless the
+trace contradicts it" fixed that. Single runs on 26 cases are noisy (one case ≈ 4 points), and both
+the prompt and the benchmark were written by us, so treat these as indicative, not definitive.
 
 ## Run it
 

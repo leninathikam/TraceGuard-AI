@@ -10,7 +10,11 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import __version__
-from .benchmark import run_evaluation
+from .env import load_dotenv
+
+load_dotenv()
+
+from .benchmark import run_evaluation  # noqa: E402
 from .detectors import run_detectors
 from .diagnosis import diagnose
 from .nebius import NebiusClient, NebiusError, NebiusNotConfigured

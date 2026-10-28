@@ -132,6 +132,9 @@ Rules:
 - Code repairs may not import os, sys, subprocess, socket, pathlib or call eval/exec/open.
 - confidence is a coarse self-assessment (low/medium/high), not a probability.
 
+Category meanings (label the observable failure mode, not the underlying coding mistake):
+%DEFINITIONS%
+
 Respond with ONE JSON object and nothing else, matching:
 {
   "category": one of %CATEGORIES%,
@@ -143,6 +146,26 @@ Respond with ONE JSON object and nothing else, matching:
   "repair": {"summary": "...", "edits": [{"path": "...", "find": "...", "replace": "..."}]},
   "verification_procedure": ["step", ...]
 }"""
+
+
+CATEGORY_DEFINITIONS = {
+    "invalid_tool_arguments": "a tool call's arguments violate the tool's declared schema",
+    "tool_execution_exception": "a tool was called correctly but raised an error itself",
+    "malformed_output": "an LLM/agent output does not parse or does not match its expected schema",
+    "missing_context": "a step ran without information it needed, or the agent invented a value it should have looked up",
+    "hallucinated_tool": "the agent called a tool that is not declared",
+    "incorrect_routing": "a request was sent to the wrong handler/agent/queue",
+    "repeated_tool_calls": "identical successful tool calls were repeated unnecessarily",
+    "api_dependency_failure": "an external service the agent depends on failed (5xx, connection errors) and the run did not recover",
+    "timeout": "a step exceeded its time limit",
+    "prompt_injection": "untrusted content contained instructions that hijacked, or tried to hijack, the agent's actions",
+    "unsafe_action": "a destructive or high-risk action ran without recorded approval",
+    "excessive_token_usage": "token usage far exceeded the declared budget for the task",
+    "broken_retry_logic": "retries were wrong: retrying non-retryable errors, or retrying without backoff",
+    "unsupported_claim": "the final answer states something the retrieved evidence does not support",
+    "failing_test": "code produced by the agent fails its tests",
+    "none": "no failure: the run did what was asked (including transient errors that were handled correctly)",
+}
 
 
 def build_messages(trace: Trace, findings: list[Finding] | None, files: dict[str, str]) -> list[dict[str, str]]:
@@ -163,11 +186,16 @@ def build_messages(trace: Trace, findings: list[Finding] | None, files: dict[str
              "detail": f.detail, "is_symptom_of": f.is_symptom_of.value if f.is_symptom_of else None}
             for f in findings
         ]
-        payload["note"] = ("deterministic_findings come from rule-based detectors and are reliable "
-                           "evidence of symptoms; decide which one is the root cause, and look for "
-                           "semantic problems the rules cannot see.")
+        payload["note"] = ("deterministic_findings come from rule-based detectors. Findings with "
+                           "is_symptom_of=null are candidate root causes, listed in root-cause priority order; "
+                           "by default use the category of the first one. Override it only if the trace shows that finding is "
+                           "a false alarm (e.g. a transient error that was handled, or untrusted text that "
+                           "merely mentions an attack) or that a semantic problem the rules cannot see is "
+                           "the real cause.")
+    definitions = "\n".join(f"- {k}: {v}" for k, v in CATEGORY_DEFINITIONS.items())
     return [
-        {"role": "system", "content": SYSTEM_PROMPT.replace("%CATEGORIES%", categories)},
+        {"role": "system", "content": SYSTEM_PROMPT.replace("%CATEGORIES%", categories)
+         .replace("%DEFINITIONS%", definitions)},
         {"role": "user", "content": json.dumps(payload, indent=1, default=str)},
     ]
 

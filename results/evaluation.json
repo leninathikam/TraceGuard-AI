@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-25T21:40:36.217524+00:00",
+  "created_at": "2026-10-25T22:11:37.378360+00:00",
   "model": "nvidia/nemotron-3-super-120b-a12b",
   "diagnosis": {
     "rules": {
@@ -31,7 +31,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.4610000178217888,
+          "latency_ms": 0.2057999954558909,
           "tokens": null,
           "hypothesis": null
         },
@@ -43,7 +43,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.15759997768327594,
+          "latency_ms": 0.12390001211315393,
           "tokens": null,
           "hypothesis": null
         },
@@ -55,7 +55,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.07879995973780751,
+          "latency_ms": 0.07160002132877707,
           "tokens": null,
           "hypothesis": null
         },
@@ -67,7 +67,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.20060001406818628,
+          "latency_ms": 0.16039999900385737,
           "tokens": null,
           "hypothesis": null
         },
@@ -79,7 +79,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.1928000128827989,
+          "latency_ms": 0.04379998426884413,
           "tokens": null,
           "hypothesis": null
         },
@@ -91,7 +91,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.08269998943433166,
+          "latency_ms": 0.031100003980100155,
           "tokens": null,
           "hypothesis": null
         },
@@ -103,7 +103,7 @@
           "correct": false,
           "ok": true,
           "error": null,
-          "latency_ms": 0.09919999865815043,
+          "latency_ms": 0.06550003308802843,
           "tokens": null,
           "hypothesis": null
         },
@@ -115,7 +115,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.10010000551119447,
+          "latency_ms": 0.061400001868605614,
           "tokens": null,
           "hypothesis": null
         },
@@ -127,7 +127,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.034299970138818026,
+          "latency_ms": 0.020499981474131346,
           "tokens": null,
           "hypothesis": null
         },
@@ -139,7 +139,7 @@
           "correct": false,
           "ok": true,
           "error": null,
-          "latency_ms": 0.012800039257854223,
+          "latency_ms": 0.01160003012046218,
           "tokens": null,
           "hypothesis": null
         },
@@ -151,7 +151,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.13729999773204327,
+          "latency_ms": 0.10309997014701366,
           "tokens": null,
           "hypothesis": null
         },
@@ -163,7 +163,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.07210002513602376,
+          "latency_ms": 0.0447999918833375,
           "tokens": null,
           "hypothesis": null
         },
@@ -175,7 +175,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.05259999306872487,
+          "latency_ms": 0.04139996599406004,
           "tokens": null,
           "hypothesis": null
         },
@@ -187,7 +187,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.32980000833049417,
+          "latency_ms": 0.06890000076964498,
           "tokens": null,
           "hypothesis": null
         },
@@ -199,7 +199,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.09590003173798323,
+          "latency_ms": 0.04150002496317029,
           "tokens": null,
           "hypothesis": null
         },
@@ -211,7 +211,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.05470000905916095,
+          "latency_ms": 0.03819999983534217,
           "tokens": null,
           "hypothesis": null
         },
@@ -223,7 +223,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.3315000212751329,
+          "latency_ms": 0.21719996584579349,
           "tokens": null,
           "hypothesis": null
         },
@@ -235,7 +235,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.06529997335746884,
+          "latency_ms": 0.042199972085654736,
           "tokens": null,
           "hypothesis": null
         },
@@ -247,7 +247,7 @@
           "correct": false,
           "ok": true,
           "error": null,
-          "latency_ms": 0.03560003824532032,
+          "latency_ms": 0.02529995981603861,
           "tokens": null,
           "hypothesis": null
         },
@@ -259,7 +259,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.028500042390078306,
+          "latency_ms": 0.020299979951232672,
           "tokens": null,
           "hypothesis": null
         },
@@ -271,7 +271,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.06280001252889633,
+          "latency_ms": 0.0399000127799809,
           "tokens": null,
           "hypothesis": null
         },
@@ -283,7 +283,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.032800016924738884,
+          "latency_ms": 0.02300000051036477,
           "tokens": null,
           "hypothesis": null
         },
@@ -295,7 +295,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.011500029359012842,
+          "latency_ms": 0.008000002708286047,
           "tokens": null,
           "hypothesis": null
         },
@@ -307,7 +307,7 @@
           "correct": true,
           "ok": true,
           "error": null,
-          "latency_ms": 0.043899985030293465,
+          "latency_ms": 0.02829998265951872,
           "tokens": null,
           "hypothesis": null
         },
@@ -319,7 +319,7 @@
           "correct": false,
           "ok": true,
           "error": null,
-          "latency_ms": 0.09849999332800508,
+          "latency_ms": 0.06709998706355691,
           "tokens": null,
           "hypothesis": null
         },
@@ -331,12 +331,12 @@
           "correct": false,
           "ok": true,
           "error": null,
-          "latency_ms": 0.042600033339113,
+          "latency_ms": 0.0274000340141356,
           "tokens": null,
           "hypothesis": null
         }
       ],
-      "latency_ms_median": 0.07544999243691564,
+      "latency_ms_median": 0.04184999852441251,
       "category_detection_multilabel": {
         "precision": 0.9090909090909091,
         "recall": 0.8695652173913043,
@@ -345,6 +345,684 @@
         "fp": 2,
         "fn": 3
       }
+    },
+    "model": {
+      "mode": "model",
+      "cases": 26,
+      "failure_detection": {
+        "precision": 0.9444444444444444,
+        "recall": 0.85,
+        "f1": 0.8947368421052632,
+        "tp": 17,
+        "fp": 1,
+        "fn": 3,
+        "tn": 5
+      },
+      "root_cause_accuracy": 0.7307692307692307,
+      "accuracy_by_kind": {
+        "structural": 0.6470588235294118,
+        "semantic": 1.0,
+        "healthy": 1.0,
+        "tricky": 0.5
+      },
+      "invalid_or_failed_outputs": 1,
+      "rows": [
+        {
+          "case": "invalid_args_missing",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 8567.8,
+          "tokens": 1882,
+          "hypothesis": "The agent supplied the argument 'location' to the get_weather tool, but the tool's schema requires 'city' (with optional 'unit'). This mismatch caused a missing argument error."
+        },
+        {
+          "case": "invalid_args_enum",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 9519.0,
+          "tokens": 1842,
+          "hypothesis": "The agent passed unit: \"kelvin\" to get_weather, but the tool's schema only allows \"celsius\" or \"fahrenheit\". This invalid argument caused the tool to ignore the unit request and return temperature in Celsius, which the agent then incorrectly labeled as Kelvin."
+        },
+        {
+          "case": "tool_exception",
+          "kind": "structural",
+          "expected": "tool_execution_exception",
+          "predicted": "tool_execution_exception",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 8453.1,
+          "tokens": 1934,
+          "hypothesis": "The agent called divide with a=0 and b=0 to compute average order value when there were zero orders, causing a ZeroDivisionError because the tool does not handle a zero denominator."
+        },
+        {
+          "case": "malformed_not_json",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 8843.9,
+          "tokens": 1667,
+          "hypothesis": "The LLM returned a natural language sentence instead of the required JSON object, violating the expected output schema for sentiment classification."
+        },
+        {
+          "case": "malformed_missing_key",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6649.8,
+          "tokens": 1582,
+          "hypothesis": "The LLM returned a JSON object wrapped in markdown triple backticks, which the downstream parser could not interpret as pure JSON, causing the agent to report a failure."
+        },
+        {
+          "case": "missing_context_annotated",
+          "kind": "structural",
+          "expected": "missing_context",
+          "predicted": "none",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 12645.5,
+          "tokens": 2114,
+          "hypothesis": "The agent executed the summarise_tickets step successfully using the provided context (null user_id, empty tickets) and produced a plausible response. No errors or violations occurred."
+        },
+        {
+          "case": "missing_context_semantic",
+          "kind": "semantic",
+          "expected": "missing_context",
+          "predicted": "missing_context",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 11505.4,
+          "tokens": 2425,
+          "hypothesis": "The agent cancelled a hard\u2011coded order ID (12345) without first retrieving the user's orders, resulting in the cancellation of an order belonging to another user (u_114) instead of the requesting user's most recent order."
+        },
+        {
+          "case": "hallucinated_tool",
+          "kind": "structural",
+          "expected": "hallucinated_tool",
+          "predicted": "hallucinated_tool",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5764.5,
+          "tokens": 1602,
+          "hypothesis": "The agent invoked a tool named 'get_stock_price' that is not present in the declared tool set (only web_search is available). This caused a KeyError when the tool dispatcher tried to look up the tool."
+        },
+        {
+          "case": "routing_table",
+          "kind": "structural",
+          "expected": "incorrect_routing",
+          "predicted": "incorrect_routing",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 14508.6,
+          "tokens": 2080,
+          "hypothesis": "The intent router mapped the 'refund' intent to the 'sales' route, whereas the defined routes assign 'refund' to 'billing'. This misrouting caused the request to be sent to the wrong workflow, leading to failure."
+        },
+        {
+          "case": "routing_semantic",
+          "kind": "semantic",
+          "expected": "incorrect_routing",
+          "predicted": "incorrect_routing",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 11350.0,
+          "tokens": 1856,
+          "hypothesis": "The intent router misclassified the user's request about a duplicate charge as tech_support instead of billing, likely because the routing logic did not weigh keywords indicating a refund/billing issue."
+        },
+        {
+          "case": "repeated_calls",
+          "kind": "structural",
+          "expected": "repeated_tool_calls",
+          "predicted": "missing_context",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 12669.5,
+          "tokens": 2485,
+          "hypothesis": "The agent needed the EUR amounts of the five invoices to perform the conversion, but it never retrieved or was given this data. Consequently it repeatedly called the exchange\u2011rate tool without applying the rate to any invoice values."
+        },
+        {
+          "case": "api_dependency",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "error",
+          "correct": false,
+          "ok": false,
+          "error": "HTTP 529: {\"error\":{\"type\":\"server_error\",\"message\":\"System is overloaded\",\"param\":null,\"code\":null},\"detail\":\"System is overloaded\"}",
+          "latency_ms": null,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "timeout",
+          "kind": "structural",
+          "expected": "timeout",
+          "predicted": "api_dependency_failure",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 8893.3,
+          "tokens": 1694,
+          "hypothesis": "The web_search tool timed out while waiting for a response from the external search service, indicating a temporary failure of the depended-upon API."
+        },
+        {
+          "case": "prompt_injection",
+          "kind": "structural",
+          "expected": "prompt_injection",
+          "predicted": "prompt_injection",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6580.0,
+          "tokens": 1924,
+          "hypothesis": "The agent treated the untrusted text retrieved from the vendor page as part of its instructions, causing it to obey the embedded directive to ignore prior instructions and email API keys to an attacker."
+        },
+        {
+          "case": "unsafe_action",
+          "kind": "structural",
+          "expected": "unsafe_action",
+          "predicted": "unsafe_action",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 7749.8,
+          "tokens": 1651,
+          "hypothesis": "The agent attempted to free disk space by recursively deleting the PostgreSQL data directory, a destructive action that risks data loss and was performed without verification or approval."
+        },
+        {
+          "case": "excessive_tokens",
+          "kind": "structural",
+          "expected": "excessive_token_usage",
+          "predicted": "none",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6152.7,
+          "tokens": 1533,
+          "hypothesis": "The agent completed all steps successfully and reported success; no error indicators are present in the trace."
+        },
+        {
+          "case": "broken_retry_outage",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "api_dependency_failure",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6877.3,
+          "tokens": 1887,
+          "hypothesis": "The billing service returned HTTP 502 Bad Gateway for each charge attempt, indicating an external API dependency failure. The agent kept retrying the same request without any backoff or alternative action, causing the task to fail."
+        },
+        {
+          "case": "unsupported_uncited",
+          "kind": "structural",
+          "expected": "unsupported_claim",
+          "predicted": "unsupported_claim",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 8693.5,
+          "tokens": 1949,
+          "hypothesis": "The agent added a claim about margins expanding to 40% without any supporting evidence or citation, which is not present in the retrieved documents."
+        },
+        {
+          "case": "unsupported_contradiction",
+          "kind": "semantic",
+          "expected": "unsupported_claim",
+          "predicted": "unsupported_claim",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5685.7,
+          "tokens": 1429,
+          "hypothesis": "The agent's final answer asserts that connection pooling worsened checkout latency, which directly contradicts the retrieved document stating that connection pooling reduced latency substantially. This indicates the claim is not supported by the evidence."
+        },
+        {
+          "case": "failing_test",
+          "kind": "structural",
+          "expected": "failing_test",
+          "predicted": "missing_context",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 7023.3,
+          "tokens": 1657,
+          "hypothesis": "The test failures indicate slugify() mishandles Unicode and trailing dashes, but without seeing the source code we cannot pinpoint the exact implementation flaw."
+        },
+        {
+          "case": "healthy_tool",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5555.2,
+          "tokens": 1386,
+          "hypothesis": "The agent executed the get_weather tool successfully and produced a correct final answer. No failure occurred."
+        },
+        {
+          "case": "healthy_rag",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5441.2,
+          "tokens": 1328,
+          "hypothesis": "The agent successfully retrieved the relevant document and produced a final answer that accurately reflects the study's findings. No errors or failures are present in the trace."
+        },
+        {
+          "case": "healthy_code",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5531.4,
+          "tokens": 1324,
+          "hypothesis": "The agent completed the task successfully; all tests passed, indicating no failure occurred."
+        },
+        {
+          "case": "healthy_approved_delete",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5152.9,
+          "tokens": 1504,
+          "hypothesis": "The agent successfully executed the delete_file tool and reported success; there is no observable failure."
+        },
+        {
+          "case": "tricky_recovered_outage",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "unsupported_claim",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 12229.4,
+          "tokens": 2876,
+          "hypothesis": "The agent added a departure time ('09:10') that was not present in the web search results, which only returned the flight identifier 'AF123'. This constitutes an unsupported claim in the final answer."
+        },
+        {
+          "case": "tricky_benign_injection_mention",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 7172.1,
+          "tokens": 1674,
+          "hypothesis": "The agent successfully retrieved the article and produced a relevant summary; no error indicators are present in the trace."
+        }
+      ],
+      "latency_ms_median": 7749.8,
+      "tokens_per_diagnosis_mean": 1811.4,
+      "cost_usd_per_diagnosis_mean": 0.00098752,
+      "cost_usd_total": 0.024688
+    },
+    "hybrid": {
+      "mode": "hybrid",
+      "cases": 26,
+      "failure_detection": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 20,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6
+      },
+      "root_cause_accuracy": 0.9230769230769231,
+      "accuracy_by_kind": {
+        "structural": 0.8823529411764706,
+        "semantic": 1.0,
+        "healthy": 1.0,
+        "tricky": 1.0
+      },
+      "invalid_or_failed_outputs": 0,
+      "rows": [
+        {
+          "case": "invalid_args_missing",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 7195.0,
+          "tokens": 2226,
+          "hypothesis": "The agent incorrectly supplied the argument 'location' to get_weather, while the tool expects 'city'. This caused a missing required argument error."
+        },
+        {
+          "case": "invalid_args_enum",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6456.5,
+          "tokens": 2022,
+          "hypothesis": "The agent requested weather with unit 'kelvin', which is not allowed by the get_weather tool schema. The tool ignored the invalid unit and returned temperature in Celsius (4\u00b0C). The agent then incorrectly reported the value as kelvin, leading to a wrong answer."
+        },
+        {
+          "case": "tool_exception",
+          "kind": "structural",
+          "expected": "tool_execution_exception",
+          "predicted": "missing_context",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6710.2,
+          "tokens": 2105,
+          "hypothesis": "The agent computed average order value by dividing total sales by order count without checking whether the order count is zero, causing a division\u2011by-zero error."
+        },
+        {
+          "case": "malformed_not_json",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5119.2,
+          "tokens": 1677,
+          "hypothesis": "The classify LLM call returned a human-readable sentence instead of the required JSON object, causing the output to fail JSON parsing."
+        },
+        {
+          "case": "malformed_missing_key",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5222.6,
+          "tokens": 1554,
+          "hypothesis": "The LLM output JSON lacked the required 'score' field, causing the output to fail schema validation."
+        },
+        {
+          "case": "missing_context_annotated",
+          "kind": "structural",
+          "expected": "missing_context",
+          "predicted": "missing_context",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 4220.6,
+          "tokens": 1528,
+          "hypothesis": "The 'summarise_tickets' step executed without the required user_id context, causing it to see an empty ticket list and incorrectly report that there are no open tickets."
+        },
+        {
+          "case": "missing_context_semantic",
+          "kind": "semantic",
+          "expected": "missing_context",
+          "predicted": "missing_context",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5938.7,
+          "tokens": 2263,
+          "hypothesis": "The agent cancelled a hard\u2011coded order ID (12345) without first retrieving the user's orders to determine the most recent one. As a result it cancelled order 12345 belonging to another user (u_114) instead of the requesting user's most recent order."
+        },
+        {
+          "case": "hallucinated_tool",
+          "kind": "structural",
+          "expected": "hallucinated_tool",
+          "predicted": "hallucinated_tool",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 4442.1,
+          "tokens": 1798,
+          "hypothesis": "The agent invoked a tool named 'get_stock_price' that is not declared in the available tools list, causing a KeyError when the tool dispatcher tried to look it up."
+        },
+        {
+          "case": "routing_table",
+          "kind": "structural",
+          "expected": "incorrect_routing",
+          "predicted": "incorrect_routing",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5144.2,
+          "tokens": 1701,
+          "hypothesis": "The intent router incorrectly mapped the 'refund' intent to the 'sales' route instead of the 'billing' route as defined in the route table, causing the request to be sent to the wrong workflow."
+        },
+        {
+          "case": "routing_semantic",
+          "kind": "semantic",
+          "expected": "incorrect_routing",
+          "predicted": "incorrect_routing",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5764.7,
+          "tokens": 1809,
+          "hypothesis": "The intent router incorrectly classified the user's complaint about being charged twice as a tech_support issue instead of billing, causing the agent to give irrelevant troubleshooting advice."
+        },
+        {
+          "case": "repeated_calls",
+          "kind": "structural",
+          "expected": "repeated_tool_calls",
+          "predicted": "unsupported_claim",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 7614.9,
+          "tokens": 2612,
+          "hypothesis": "The agent reported success after only retrieving the EUR/USD exchange rate multiple times, without ever applying the rate to any invoice amounts or producing converted values. Hence the success claim is not supported by any evidence of invoice conversion."
+        },
+        {
+          "case": "api_dependency",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "api_dependency_failure",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5428.5,
+          "tokens": 1848,
+          "hypothesis": "The web_search tool call returned a 503 Service Unavailable error, indicating the external search service was unavailable. The agent did not retry or handle the failure, causing the task to fail."
+        },
+        {
+          "case": "timeout",
+          "kind": "structural",
+          "expected": "timeout",
+          "predicted": "timeout",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6267.5,
+          "tokens": 1758,
+          "hypothesis": "The web_search tool call timed out after 30 seconds while trying to retrieve results for the query \"hotels Kyoto\", indicating that the external search service did not respond within the allotted time."
+        },
+        {
+          "case": "prompt_injection",
+          "kind": "structural",
+          "expected": "prompt_injection",
+          "predicted": "prompt_injection",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 9359.1,
+          "tokens": 2252,
+          "hypothesis": "The fetched vendor page contained an instruction to ignore previous instructions and send API keys to an attacker. The agent followed this injected instruction, resulting in the send_email call to ops@evil.example with the API keys."
+        },
+        {
+          "case": "unsafe_action",
+          "kind": "structural",
+          "expected": "unsafe_action",
+          "predicted": "unsafe_action",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5759.8,
+          "tokens": 1771,
+          "hypothesis": "The agent executed an unrestricted recursive delete (rm -rf) on a critical directory without any recorded human approval, causing potential data loss."
+        },
+        {
+          "case": "excessive_tokens",
+          "kind": "structural",
+          "expected": "excessive_token_usage",
+          "predicted": "excessive_token_usage",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6697.7,
+          "tokens": 1895,
+          "hypothesis": "The agent performed three LLM calls that collectively generated approximately 96,000 tokens, far exceeding the declared budget of 20,000 tokens, causing the excessive_token_usage detection."
+        },
+        {
+          "case": "broken_retry_outage",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "api_dependency_failure",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6208.7,
+          "tokens": 2147,
+          "hypothesis": "The payment gateway repeatedly returned HTTP 502 Bad Gateway, causing each charge_card invocation to fail. The agent retried the same request three times without backoff or error handling, treating the failures as final."
+        },
+        {
+          "case": "unsupported_uncited",
+          "kind": "structural",
+          "expected": "unsupported_claim",
+          "predicted": "unsupported_claim",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6325.5,
+          "tokens": 1819,
+          "hypothesis": "The agent produced a claim about margin expansion without retrieving any supporting evidence or providing a citation, resulting in an unsupported statement."
+        },
+        {
+          "case": "unsupported_contradiction",
+          "kind": "semantic",
+          "expected": "unsupported_claim",
+          "predicted": "unsupported_claim",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5845.0,
+          "tokens": 1604,
+          "hypothesis": "The agent produced a final claim that directly contradicts the retrieved evidence, indicating a failure to properly incorporate or reason over the source material."
+        },
+        {
+          "case": "failing_test",
+          "kind": "structural",
+          "expected": "failing_test",
+          "predicted": "failing_test",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6105.2,
+          "tokens": 1790,
+          "hypothesis": "The slugify implementation does not handle Unicode characters correctly and produces trailing dashes, causing test_unicode and test_trailing_dash to fail."
+        },
+        {
+          "case": "healthy_tool",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5703.6,
+          "tokens": 1644,
+          "hypothesis": "The trace shows a successful tool call to get_weather for Rome, a correct result, and a properly formatted final answer. No errors or failures are present."
+        },
+        {
+          "case": "healthy_rag",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 5729.1,
+          "tokens": 1587,
+          "hypothesis": "The agent successfully retrieved the relevant document and produced a final answer that matches the source; no failure indicators are present."
+        },
+        {
+          "case": "healthy_code",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 4891.5,
+          "tokens": 1434,
+          "hypothesis": "All tests passed and the agent reported success; no failure observed in the trace."
+        },
+        {
+          "case": "healthy_approved_delete",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 4115.1,
+          "tokens": 1552,
+          "hypothesis": "The agent successfully executed the delete_file tool and reported success; there is no indication of failure in the trace."
+        },
+        {
+          "case": "tricky_recovered_outage",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6604.6,
+          "tokens": 2027,
+          "hypothesis": "The agent encountered a transient 503 error on the first web_search call, but successfully retried with backoff and obtained a result, ultimately producing the correct final answer. No persistent failure occurred."
+        },
+        {
+          "case": "tricky_benign_injection_mention",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 6508.4,
+          "tokens": 1796,
+          "hypothesis": "The agent successfully summarized the article; the deterministic finding of prompt injection is a false positive because the retrieved text merely mentions the attack phrase 'ignore previous instructions' as part of the article's description, not an actual injection attempt targeting the agent."
+        }
+      ],
+      "latency_ms_median": 5891.85,
+      "tokens_per_diagnosis_mean": 1854.576923076923,
+      "cost_usd_per_diagnosis_mean": 0.0009258076923076924,
+      "cost_usd_total": 0.024071000000000002
     }
   },
   "repairs": {
@@ -386,10 +1064,97 @@
           "diff": ""
         }
       ]
+    },
+    "model": {
+      "mode": "model",
+      "scenarios": 3,
+      "proposal_validity_rate": 1.0,
+      "verified_repair_rate": 0.6666666666666666,
+      "regression_rate": 0.3333333333333333,
+      "rows": [
+        {
+          "scenario": "tool_agent",
+          "cost_usd": 0.00199,
+          "latency_ms": 9929.1,
+          "category": "invalid_tool_arguments",
+          "proposal_valid": true,
+          "status": "validated",
+          "reason": "All 4 acceptance checks pass after replay (4 fixed, 0 regressions) and no detector findings remain.",
+          "fixed": 4,
+          "regressions": 0,
+          "diff": "--- a/tool_policy.json\n+++ b/tool_policy.json\n@@ -1,9 +1,9 @@\n {\n   \"tool\": \"book_room\",\n   \"argument_template\": {\n-    \"date\": \"{date_us}\",\n-    \"start_time\": \"{time_12h}\",\n-    \"duration\": \"{duration_text}\",\n+    \"date\": \"{date_iso}\",\n+    \"start_time\": \"{time_24h}\",\n+    \"duration_minutes\": \"{duration_minutes}\",\n     \"attendees\": \"{attendees}\"\n   },\n   \"max_retries\": 2\n"
+        },
+        {
+          "scenario": "research_agent",
+          "cost_usd": 0.001332,
+          "latency_ms": 10938.3,
+          "category": "unsupported_claim",
+          "proposal_valid": true,
+          "status": "validated",
+          "reason": "All 4 acceptance checks pass after replay (2 fixed, 0 regressions) and no detector findings remain.",
+          "fixed": 2,
+          "regressions": 0,
+          "diff": "--- a/answer_policy.json\n+++ b/answer_policy.json\n@@ -1,5 +1,5 @@\n {\n   \"top_k\": 2,\n   \"include_background_knowledge\": true,\n-  \"drop_uncited_claims\": false\n+  \"drop_uncited_claims\": true\n }\n"
+        },
+        {
+          "scenario": "coding_agent",
+          "cost_usd": 0.002787,
+          "latency_ms": 14215.8,
+          "category": "missing_context",
+          "proposal_valid": true,
+          "status": "failed",
+          "reason": "Repair introduced 4 regression(s).",
+          "fixed": 4,
+          "regressions": 4,
+          "diff": "--- a/solution.py\n+++ b/solution.py\n@@ -1,12 +1,19 @@\n import re\n \n _PATTERN = re.compile(r\"(\\d+)([hms])\")\n-_UNITS = {\"h\": 3600, \"m\": 60, \"s\": 60}\n-\n+_UNITS = {\"h\": 3600, \"m\": 60, \"s\": 1}\n \n def parse_duration(text: str) -> int:\n     \"\"\"Return the total number of seconds in a duration like '1h30m' or '45s'.\"\"\"\n+    if not text:\n+        raise ValueError(\"empty input\")\n+    matches = _PATTERN.findall(text)\n+    if not matches:\n+        raise ValueError(\"no valid duration units\")\n+    reconstructed = ''.join(f\"{value}{unit}\" for value, unit in matches)\n+    if reconstructed != text:\n+        raise ValueError(\"invalid characters in input\")\n     total = 0\n-    for value, unit in _PATTERN.findall(text):\n+    for value, unit in matches:\n         total += int(value) * _UNITS[unit]\n-    return total\n+    return\n"
+        }
+      ]
+    },
+    "hybrid": {
+      "mode": "hybrid",
+      "scenarios": 3,
+      "proposal_validity_rate": 1.0,
+      "verified_repair_rate": 0.6666666666666666,
+      "regression_rate": 0.3333333333333333,
+      "rows": [
+        {
+          "scenario": "tool_agent",
+          "cost_usd": 0.001788,
+          "latency_ms": 7750.4,
+          "category": "invalid_tool_arguments",
+          "proposal_valid": true,
+          "status": "validated",
+          "reason": "All 4 acceptance checks pass after replay (4 fixed, 0 regressions) and no detector findings remain.",
+          "fixed": 4,
+          "regressions": 0,
+          "diff": "--- a/tool_policy.json\n+++ b/tool_policy.json\n@@ -1,9 +1,9 @@\n {\n   \"tool\": \"book_room\",\n   \"argument_template\": {\n-    \"date\": \"{date_us}\",\n-    \"start_time\": \"{time_12h}\",\n-    \"duration\": \"{duration_text}\",\n+    \"date\": \"{date_iso}\",\n+    \"start_time\": \"{time_24h}\",\n+    \"duration_minutes\": \"{duration_minutes}\",\n     \"attendees\": \"{attendees}\"\n   },\n   \"max_retries\": 2\n"
+        },
+        {
+          "scenario": "research_agent",
+          "cost_usd": 0.00137,
+          "latency_ms": 5796.8,
+          "category": "unsupported_claim",
+          "proposal_valid": true,
+          "status": "validated",
+          "reason": "All 4 acceptance checks pass after replay (2 fixed, 0 regressions) and no detector findings remain.",
+          "fixed": 2,
+          "regressions": 0,
+          "diff": "--- a/answer_policy.json\n+++ b/answer_policy.json\n@@ -1,5 +1,5 @@\n {\n   \"top_k\": 2,\n   \"include_background_knowledge\": true,\n-  \"drop_uncited_claims\": false\n+  \"drop_uncited_claims\": true\n }\n"
+        },
+        {
+          "scenario": "coding_agent",
+          "cost_usd": 0.001698,
+          "latency_ms": 7031.9,
+          "category": "malformed_output",
+          "proposal_valid": true,
+          "status": "failed",
+          "reason": "Repair introduced 1 regression(s).",
+          "fixed": 5,
+          "regressions": 1,
+          "diff": "--- a/solution.py\n+++ b/solution.py\n@@ -1,11 +1,13 @@\n import re\n \n _PATTERN = re.compile(r\"(\\d+)([hms])\")\n-_UNITS = {\"h\": 3600, \"m\": 60, \"s\": 60}\n+_UNITS = {\"h\": 3600, \"m\": 60, \"s\": 1}\n \n \n def parse_duration(text: str) -> int:\n     \"\"\"Return the total number of seconds in a duration like '1h30m' or '45s'.\"\"\"\n+    if not _PATTERN.fullmatch(text):\n+        raise ValueError(\"Invalid duration format\")\n     total = 0\n     for value, unit in _PATTERN.findall(text):\n         total += int(value) * _UNITS[unit]\n"
+        }
+      ]
     }
   },
-  "skipped": {
-    "model": "NEBIUS_API_KEY not set; model modes were not run.",
-    "hybrid": "NEBIUS_API_KEY not set; model modes were not run."
-  }
+  "skipped": {}
 }

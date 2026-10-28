@@ -170,6 +170,9 @@ def run_evaluation(modes: list[str], client: NebiusClient | None = None, include
 
 
 def main() -> None:
+    from ..env import load_dotenv
+
+    load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument("--modes", default="rules,model,hybrid")
     parser.add_argument("--no-repairs", action="store_true")
