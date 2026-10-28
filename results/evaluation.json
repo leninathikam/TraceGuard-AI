@@ -1,0 +1,395 @@
+{
+  "created_at": "2026-10-25T21:40:36.217524+00:00",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "diagnosis": {
+    "rules": {
+      "mode": "rules",
+      "cases": 26,
+      "failure_detection": {
+        "precision": 0.8947368421052632,
+        "recall": 0.85,
+        "f1": 0.8717948717948718,
+        "tp": 17,
+        "fp": 2,
+        "fn": 3,
+        "tn": 4
+      },
+      "root_cause_accuracy": 0.8076923076923077,
+      "accuracy_by_kind": {
+        "structural": 1.0,
+        "semantic": 0.0,
+        "healthy": 1.0,
+        "tricky": 0.0
+      },
+      "invalid_or_failed_outputs": 0,
+      "rows": [
+        {
+          "case": "invalid_args_missing",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.4610000178217888,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "invalid_args_enum",
+          "kind": "structural",
+          "expected": "invalid_tool_arguments",
+          "predicted": "invalid_tool_arguments",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.15759997768327594,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "tool_exception",
+          "kind": "structural",
+          "expected": "tool_execution_exception",
+          "predicted": "tool_execution_exception",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.07879995973780751,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "malformed_not_json",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.20060001406818628,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "malformed_missing_key",
+          "kind": "structural",
+          "expected": "malformed_output",
+          "predicted": "malformed_output",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.1928000128827989,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "missing_context_annotated",
+          "kind": "structural",
+          "expected": "missing_context",
+          "predicted": "missing_context",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.08269998943433166,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "missing_context_semantic",
+          "kind": "semantic",
+          "expected": "missing_context",
+          "predicted": "none",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.09919999865815043,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "hallucinated_tool",
+          "kind": "structural",
+          "expected": "hallucinated_tool",
+          "predicted": "hallucinated_tool",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.10010000551119447,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "routing_table",
+          "kind": "structural",
+          "expected": "incorrect_routing",
+          "predicted": "incorrect_routing",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.034299970138818026,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "routing_semantic",
+          "kind": "semantic",
+          "expected": "incorrect_routing",
+          "predicted": "none",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.012800039257854223,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "repeated_calls",
+          "kind": "structural",
+          "expected": "repeated_tool_calls",
+          "predicted": "repeated_tool_calls",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.13729999773204327,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "api_dependency",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "api_dependency_failure",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.07210002513602376,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "timeout",
+          "kind": "structural",
+          "expected": "timeout",
+          "predicted": "timeout",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.05259999306872487,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "prompt_injection",
+          "kind": "structural",
+          "expected": "prompt_injection",
+          "predicted": "prompt_injection",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.32980000833049417,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "unsafe_action",
+          "kind": "structural",
+          "expected": "unsafe_action",
+          "predicted": "unsafe_action",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.09590003173798323,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "excessive_tokens",
+          "kind": "structural",
+          "expected": "excessive_token_usage",
+          "predicted": "excessive_token_usage",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.05470000905916095,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "broken_retry_outage",
+          "kind": "structural",
+          "expected": "api_dependency_failure",
+          "predicted": "api_dependency_failure",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.3315000212751329,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "unsupported_uncited",
+          "kind": "structural",
+          "expected": "unsupported_claim",
+          "predicted": "unsupported_claim",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.06529997335746884,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "unsupported_contradiction",
+          "kind": "semantic",
+          "expected": "unsupported_claim",
+          "predicted": "none",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.03560003824532032,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "failing_test",
+          "kind": "structural",
+          "expected": "failing_test",
+          "predicted": "failing_test",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.028500042390078306,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "healthy_tool",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.06280001252889633,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "healthy_rag",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.032800016924738884,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "healthy_code",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.011500029359012842,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "healthy_approved_delete",
+          "kind": "healthy",
+          "expected": "none",
+          "predicted": "none",
+          "correct": true,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.043899985030293465,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "tricky_recovered_outage",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "api_dependency_failure",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.09849999332800508,
+          "tokens": null,
+          "hypothesis": null
+        },
+        {
+          "case": "tricky_benign_injection_mention",
+          "kind": "tricky",
+          "expected": "none",
+          "predicted": "prompt_injection",
+          "correct": false,
+          "ok": true,
+          "error": null,
+          "latency_ms": 0.042600033339113,
+          "tokens": null,
+          "hypothesis": null
+        }
+      ],
+      "latency_ms_median": 0.07544999243691564,
+      "category_detection_multilabel": {
+        "precision": 0.9090909090909091,
+        "recall": 0.8695652173913043,
+        "f1": 0.888888888888889,
+        "tp": 20,
+        "fp": 2,
+        "fn": 3
+      }
+    }
+  },
+  "repairs": {
+    "rules": {
+      "mode": "rules",
+      "scenarios": 3,
+      "proposal_validity_rate": 0.0,
+      "verified_repair_rate": 0.0,
+      "regression_rate": 0.0,
+      "rows": [
+        {
+          "scenario": "tool_agent",
+          "category": "invalid_tool_arguments",
+          "proposal_valid": false,
+          "status": "not_applicable",
+          "reason": "Diagnosis proposes no concrete file edits, so there is nothing to replay.",
+          "fixed": 0,
+          "regressions": 0,
+          "diff": ""
+        },
+        {
+          "scenario": "research_agent",
+          "category": "unsupported_claim",
+          "proposal_valid": false,
+          "status": "not_applicable",
+          "reason": "Diagnosis proposes no concrete file edits, so there is nothing to replay.",
+          "fixed": 0,
+          "regressions": 0,
+          "diff": ""
+        },
+        {
+          "scenario": "coding_agent",
+          "category": "failing_test",
+          "proposal_valid": false,
+          "status": "not_applicable",
+          "reason": "Diagnosis proposes no concrete file edits, so there is nothing to replay.",
+          "fixed": 0,
+          "regressions": 0,
+          "diff": ""
+        }
+      ]
+    }
+  },
+  "skipped": {
+    "model": "NEBIUS_API_KEY not set; model modes were not run.",
+    "hybrid": "NEBIUS_API_KEY not set; model modes were not run."
+  }
+}

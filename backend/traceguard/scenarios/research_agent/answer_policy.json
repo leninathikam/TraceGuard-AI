@@ -1,0 +1,5 @@
+{
+  "top_k": 2,
+  "include_background_knowledge": true,
+  "drop_uncited_claims": false
+}

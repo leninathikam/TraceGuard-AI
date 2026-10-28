@@ -1,0 +1,22 @@
+[
+  {
+    "id": "doc-latency-2025",
+    "title": "2025 Checkout Latency Study",
+    "text": "The 2025 checkout latency study found that p95 latency fell from 820 ms to 610 ms after enabling database connection pooling. The study covered 14 days of production traffic."
+  },
+  {
+    "id": "doc-cache-2025",
+    "title": "Checkout Cache Review",
+    "text": "In the same 2025 study period, the checkout cache hit rate rose from 72% to 91% after the product catalog cache TTL was extended to 10 minutes."
+  },
+  {
+    "id": "doc-grpc-proposal",
+    "title": "gRPC Migration Proposal",
+    "text": "A proposal to migrate checkout to gRPC is under review. No measurements have been taken yet."
+  },
+  {
+    "id": "doc-oncall",
+    "title": "On-call Handbook",
+    "text": "Pages for checkout are routed to the payments on-call rotation."
+  }
+]

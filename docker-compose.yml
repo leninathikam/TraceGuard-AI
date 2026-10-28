@@ -1,0 +1,15 @@
+services:
+  traceguard:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      TRACEGUARD_MODEL: ${TRACEGUARD_MODEL:-nvidia/nemotron-3-super-120b-a12b}
+    volumes:
+      - traceguard-data:/data
+
+volumes:
+  traceguard-data:

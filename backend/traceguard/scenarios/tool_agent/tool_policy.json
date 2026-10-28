@@ -1,0 +1,10 @@
+{
+  "tool": "book_room",
+  "argument_template": {
+    "date": "{date_us}",
+    "start_time": "{time_12h}",
+    "duration": "{duration_text}",
+    "attendees": "{attendees}"
+  },
+  "max_retries": 2
+}
