@@ -101,14 +101,14 @@ export default function Overview() {
           </div>
 
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-            <a href="#/codebase" className="btn" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              📂 Codebase Explorer
+            <a href="#/codebase" className="btn" style={{ textDecoration: "none" }}>
+              Codebase Explorer
             </a>
-            <a href="#/causal-lab" className="btn" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              🔬 Causal Lab
+            <a href="#/causal-lab" className="btn" style={{ textDecoration: "none" }}>
+              Causal Lab
             </a>
-            <a href="#/analytics" className="btn" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              📊 Token Analytics
+            <a href="#/analytics" className="btn" style={{ textDecoration: "none" }}>
+              Token Analytics
             </a>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function Overview() {
         title="Live Autonomous Coding Agent"
         actions={
           <button onClick={() => run('live')} disabled={busy !== null} className="primary" style={{ fontWeight: "600" }}>
-            {busy === 'live' ? 'Generating & Testing on Nebius…' : '⚡ Run Live Agent'}
+            {busy === 'live' ? 'Generating & Testing on Nebius…' : 'Run Live Agent'}
           </button>
         }
       >
@@ -204,7 +204,7 @@ export default function Overview() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: "700", margin: 0 }}>Target Workspaces & Codebases</h2>
           <a href="#/codebase" className="small" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: "600" }}>
-            Browse Codebases in Repository Explorer ➔
+            Browse Codebases in Repository Explorer →
           </a>
         </div>
 

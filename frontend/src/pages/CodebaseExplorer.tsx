@@ -67,8 +67,7 @@ export default function CodebaseExplorer() {
       {/* Top Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px", flexWrap: "wrap", gap: "16px" }}>
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "24px" }}>📂</span>
+          <div>
             <h1 style={{ fontSize: "22px", fontWeight: "700", margin: 0 }}>Codebase & Repository Explorer</h1>
           </div>
           <p className="dim" style={{ fontSize: "14px", marginTop: "6px", maxWidth: "800px" }}>
@@ -107,7 +106,7 @@ export default function CodebaseExplorer() {
             className="btn primary"
             style={{ marginTop: "18px", padding: "8px 16px", display: "flex", alignItems: "center", gap: "8px", fontWeight: "600" }}
           >
-            {running ? "Executing Sandbox..." : "⚡ Run Agent in Codebase"}
+            {running ? "Executing Sandbox..." : "Run Workflow Replay"}
           </button>
         </div>
       </div>
@@ -207,7 +206,7 @@ export default function CodebaseExplorer() {
                     }}
                   >
                     <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      📄 {file.path}
+                      {file.path}
                     </span>
                     {badge}
                   </button>
@@ -260,7 +259,7 @@ export default function CodebaseExplorer() {
                       cursor: "pointer"
                     }}
                   >
-                    {copied ? "✓ Copied" : "Copy Code"}
+                    {copied ? "Copied" : "Copy Code"}
                   </button>
                 </div>
 

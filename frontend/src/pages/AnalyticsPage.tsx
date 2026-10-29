@@ -32,8 +32,7 @@ export default function AnalyticsPage() {
     <div className="page" style={{ maxWidth: "1400px", margin: "0 auto", padding: "24px 16px" }}>
       {/* Header */}
       <div style={{ marginBottom: "24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ fontSize: "24px" }}>📊</span>
+        <div>
           <h1 style={{ fontSize: "22px", fontWeight: "700", margin: 0 }}>Nebius Token Factory & Cost Analytics</h1>
         </div>
         <p className="dim" style={{ fontSize: "14px", marginTop: "6px", maxWidth: "900px" }}>
@@ -122,7 +121,7 @@ export default function AnalyticsPage() {
                 <tbody>
                   <tr style={{ borderBottom: "1px solid var(--line)", background: "rgba(118, 185, 0, 0.08)" }}>
                     <td style={{ padding: "12px 10px", fontWeight: "700", color: "var(--accent)" }}>
-                      ★ Nebius Token Factory (Nemotron 120B)
+                      Nebius Token Factory (Nemotron-3-Super-120B)
                     </td>
                     <td style={{ padding: "12px 10px" }}>$0.20 / $0.80 per 1M</td>
                     <td style={{ padding: "12px 10px", fontWeight: "700", color: "#10b981" }}>${totalCostNebius.toFixed(4)}</td>

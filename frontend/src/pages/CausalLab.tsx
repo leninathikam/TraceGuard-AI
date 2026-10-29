@@ -38,8 +38,7 @@ export default function CausalLab() {
     <div className="page" style={{ maxWidth: "1400px", margin: "0 auto", padding: "24px 16px" }}>
       {/* Header */}
       <div style={{ marginBottom: "24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ fontSize: "24px" }}>🔬</span>
+        <div>
           <h1 style={{ fontSize: "22px", fontWeight: "700", margin: 0 }}>Causal Soundness Lab & Counterfactual Studio</h1>
         </div>
         <p className="dim" style={{ fontSize: "14px", marginTop: "6px", maxWidth: "900px" }}>
@@ -88,7 +87,7 @@ export default function CausalLab() {
             className="btn small"
             style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}
           >
-            Open in Trace Inspector ➔
+            Open in Trace Inspector →
           </a>
         )}
       </div>
@@ -106,7 +105,6 @@ export default function CausalLab() {
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px", marginBottom: "12px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "18px", color: "var(--accent)" }}>🛡️</span>
                 <span style={{ fontSize: "16px", fontWeight: "700" }}>Causal Verification Status:</span>
                 <span className="badge good" style={{ textTransform: "uppercase" }}>{activeVerification.status}</span>
               </div>
@@ -122,7 +120,7 @@ export default function CausalLab() {
               <span className="dim small">Repaired Checks:</span>
               {activeVerification.fixed_checks.map((fc) => (
                 <span key={fc} style={{ fontSize: "11px", padding: "3px 8px", borderRadius: "4px", background: "rgba(16, 185, 129, 0.15)", color: "#10b981", border: "1px solid #10b981" }}>
-                  ✓ {fc}
+                  {fc}
                 </span>
               ))}
               {activeVerification.regressions.length === 0 && (
@@ -185,7 +183,7 @@ export default function CausalLab() {
                       color: inv.outcome === "failure_restored" ? "#10b981" : "#f59e0b",
                       fontWeight: "700"
                     }}>
-                      {inv.outcome === "failure_restored" ? "CAUSALLY NECESSARY ✓" : "INCONCLUSIVE"}
+                      {inv.outcome === "failure_restored" ? "CAUSALLY NECESSARY" : "INCONCLUSIVE"}
                     </span>
                   </div>
                 ))}
@@ -265,7 +263,7 @@ export default function CausalLab() {
               className="btn primary"
               style={{ textDecoration: "none", padding: "10px 18px", fontWeight: "600", display: "inline-flex", alignItems: "center", gap: "8px" }}
             >
-              📥 Download Pytest Witness (.py)
+              Export Pytest Witness (.py)
             </a>
           </div>
         </div>
@@ -277,7 +275,6 @@ export default function CausalLab() {
           border: "1px solid var(--line)",
           borderRadius: "8px"
         }}>
-          <span style={{ fontSize: "36px", display: "block", marginBottom: "12px" }}>🔍</span>
           <h3 style={{ fontSize: "18px", fontWeight: "600", margin: "0 0 8px 0" }}>No Verified Repair on this Trace Yet</h3>
           <p className="dim" style={{ maxWidth: "500px", margin: "0 auto 20px auto", fontSize: "14px" }}>
             To inspect causal ablation tests and cryptographic evidence hashes, generate a diagnosis with Nemotron 120B and click "Verify Repair in Sandbox".

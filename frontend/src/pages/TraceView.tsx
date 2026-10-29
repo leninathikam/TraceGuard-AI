@@ -247,9 +247,9 @@ function DiagnosisView({ d, onHover }: { d: Diagnosis; onHover: (ids: string[]) 
           className="ghost small"
           onClick={() => speak(`Root cause hypothesis: ${d.root_cause_hypothesis}. Confidence is ${d.confidence}.`)}
           style={{ padding: "2px 8px", fontSize: "11px", whiteSpace: "nowrap" }}
-          title="Listen to hypothesis spoken aloud"
+          title="Audio readback of hypothesis"
         >
-          🔊 Listen
+          Read Aloud
         </button>
       </div>
       <div className="small" onMouseEnter={() => onHover(d.supporting_event_ids)} onMouseLeave={() => onHover([])}>
@@ -307,8 +307,8 @@ function VerificationView({ v }: { v: Verification }) {
               return (
                 <tr key={n}>
                   <td className="mono small">{n}</td>
-                  <td>{b ? (b.passed ? "✅" : "❌") : "—"}</td>
-                  <td title={r?.detail}>{r ? (r.passed ? "✅" : "❌") : "—"}</td>
+                  <td>{b ? <Badge tone={b.passed ? "good" : "bad"}>{b.passed ? "PASS" : "FAIL"}</Badge> : <span className="dim">—</span>}</td>
+                  <td title={r?.detail}>{r ? <Badge tone={r.passed ? "good" : "bad"}>{r.passed ? "PASS" : "FAIL"}</Badge> : <span className="dim">—</span>}</td>
                   <td className="small">
                     {v.fixed_checks.includes(n) && <Badge tone="good">fixed</Badge>}
                     {v.regressions.includes(n) && <Badge tone="bad">regression</Badge>}

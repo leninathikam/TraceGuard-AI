@@ -147,7 +147,16 @@ export default function VoiceOperator() {
         }}
         title="Voice Operator: control TraceGuard with spoken commands"
       >
-        <span>{active ? "🎙️ Active" : "🎙️ Voice Agent"}</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+          <span style={{
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            background: active ? "#0b0f14" : "var(--accent)",
+            display: "inline-block",
+          }} />
+          {active ? "Voice Listening" : "Voice Control"}
+        </span>
       </button>
       {active && (
         <span className="small dim" style={{ maxWidth: "340px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
