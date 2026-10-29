@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, Response
+from fastapi.responses import FileResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -29,6 +29,15 @@ from .evidence import regression_test
 
 app = FastAPI(title="TraceGuard AI", version=__version__)
 store = Store()
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request, exc):
+    import traceback
+    return JSONResponse(
+        status_code=500,
+        content={"error": str(exc), "traceback": traceback.format_exc()},
+    )
 
 
 def client() -> NebiusClient:
@@ -186,6 +195,8 @@ def verify(diagnosis_id: str) -> dict[str, Any]:
     if not d:
         raise HTTPException(404, "diagnosis not found")
     trace = store.get_trace(d.trace_id)
+    if not trace:
+        raise HTTPException(404, f"trace {d.trace_id} not found")
     v = verify_repair(d, trace)
     if v.repaired and v.repaired.trace:
         replay = v.repaired.trace.model_copy(deep=True)
