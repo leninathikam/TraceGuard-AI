@@ -9,6 +9,8 @@ import argparse
 import json
 import statistics
 import time
+import hashlib
+import platform
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -111,9 +113,14 @@ def _score(cases: list[Case], results: list[dict[str, Any]], mode: str) -> dict[
 
 def _repair_eval(mode: str, client: NebiusClient) -> dict[str, Any]:
     rows = []
+    calls = []
     for sid, scenario in SCENARIOS.items():
         baseline = run_scenario(scenario)
         trace = baseline.trace
+        if trace is None:
+            rows.append({'scenario': sid, 'proposal_valid': False, 'status': 'baseline_error',
+                         'error': baseline.error, 'baseline': baseline.model_dump(mode='json')})
+            continue
         trace.id = f"bench_{sid}"
         row: dict[str, Any] = {"scenario": sid}
         try:
@@ -123,6 +130,7 @@ def _repair_eval(mode: str, client: NebiusClient) -> dict[str, Any]:
                 d, _ = diagnose_with_model(trace, mode, client)
                 row["cost_usd"] = d.model_call.cost_usd
                 row["latency_ms"] = d.model_call.latency_ms
+                calls.append({'info': d.model_call, 'model': client.model, 'ok': True})
         except NebiusError as exc:
             rows.append(row | {"proposal_valid": False, "status": "model_error", "error": str(exc)})
             continue
@@ -136,6 +144,8 @@ def _repair_eval(mode: str, client: NebiusClient) -> dict[str, Any]:
             "fixed": len(v.fixed_checks),
             "regressions": len(v.regressions),
             "diff": v.diff,
+            "diagnosis": d.model_dump(mode='json'),
+            "verification": v.model_dump(mode='json'),
         })
     n = len(rows)
     return {
@@ -145,6 +155,7 @@ def _repair_eval(mode: str, client: NebiusClient) -> dict[str, Any]:
         "verified_repair_rate": sum(r["status"] == "validated" for r in rows) / n,
         "regression_rate": sum(1 for r in rows if r.get("regressions")) / n,
         "rows": rows,
+        "_llm_calls": calls,
     }
 
 
@@ -153,6 +164,12 @@ def run_evaluation(modes: list[str], client: NebiusClient | None = None, include
     client = client or NebiusClient()
     result: dict[str, Any] = {"created_at": utcnow(), "model": client.model, "diagnosis": {},
                               "repairs": {}, "skipped": {}, "_llm_calls": []}
+    root = Path(__file__).resolve().parents[1]
+    result['provenance'] = {'python': platform.python_version(), 'base_url': client.base_url,
+                            'temperature': 0.1, 'workers': workers,
+                            'case_count': len(CASES), 'source_sha256': {
+                                p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                                for p in sorted(root.rglob('*.py')) if '__pycache__' not in p.parts}}
     for mode in modes:
         if mode != "rules" and not client.configured:
             result["skipped"][mode] = "NEBIUS_API_KEY not set; model modes were not run."
@@ -166,6 +183,7 @@ def run_evaluation(modes: list[str], client: NebiusClient | None = None, include
         result["diagnosis"][mode] = _score(CASES, results, mode)
         if include_repairs:
             result["repairs"][mode] = _repair_eval(mode, client)
+            result['_llm_calls'].extend(result['repairs'][mode].pop('_llm_calls'))
     return result
 
 

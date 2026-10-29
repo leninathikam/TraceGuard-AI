@@ -12,6 +12,7 @@ WORKDIR /app
 COPY backend/requirements.txt backend/requirements.txt
 RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY backend/ backend/
+COPY results/ results/
 COPY --from=ui /ui/dist frontend/dist
 RUN useradd --create-home app && mkdir /data && chown app /data
 USER app

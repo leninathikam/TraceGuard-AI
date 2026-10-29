@@ -23,7 +23,7 @@ export default function Overview() {
     setBusy(id);
     setError(null);
     try {
-      const r = await api.runScenario(id);
+      const r = id === 'live' ? await api.runLiveAgent() : await api.runScenario(id);
       window.location.hash = `#/trace/${r.trace_id}`;
     } catch (e) {
       setError((e as Error).message);
@@ -53,6 +53,15 @@ export default function Overview() {
       </header>
 
       {error && <div className="alert bad">{error}</div>}
+
+      <Card title="Live Nemotron coding agent" actions={<button onClick={() => run('live')} disabled={busy !== null}>
+        {busy === 'live' ? 'Generating and testing…' : 'Run live agent'}
+      </button>}>
+        <p>Nemotron writes a duration parser on Nebius Token Factory. TraceGuard executes the generated code,
+          captures the model call, and checks it against visible and held-out tests.</p>
+        <p className="dim small">A correct first attempt is a success, not a repair opportunity. Replay freezes the generated
+          artifact so a new model sample cannot masquerade as a fix. The scenarios below are deterministic fixtures.</p>
+      </Card>
 
       <div className="grid3">
         {scenarios.map((s) => (

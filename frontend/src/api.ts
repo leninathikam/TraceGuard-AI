@@ -87,6 +87,9 @@ export type Verification = {
   remaining_findings: Finding[];
   repaired_trace_id: string | null;
   created_at: string;
+  causal_scope?: string;
+  evidence_hashes?: Record<string, string>;
+  intervention_tests?: { omitted_edit: number; path?: string; outcome: string; restored_failures?: string[]; error?: string }[];
 };
 
 export type TraceDetail = {
@@ -112,6 +115,12 @@ export type TraceSummary = {
 
 export type Scenario = { id: string; title: string; summary: string; editable_files: string[] };
 export type Health = { nebius_configured: boolean; model: string; sandbox: string; version: string };
+export type SandboxStatus = {
+  current_mode: "subprocess" | "docker";
+  docker_available: boolean;
+  docker_detail: string;
+  image: string;
+};
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, {
@@ -131,6 +140,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  runLiveAgent: () => request<{ trace_id: string }>("/api/agents/coding/run", { method: "POST" }),
+  sandboxStatus: () => request<SandboxStatus>("/api/sandbox/status"),
+  setSandboxMode: (mode: "subprocess" | "docker") =>
+    request<SandboxStatus>("/api/sandbox/mode", { method: "POST", body: JSON.stringify({ mode }) }),
   health: () => request<Health>("/api/health"),
   scenarios: () => request<Scenario[]>("/api/scenarios"),
   runScenario: (id: string) => request<{ trace_id: string }>(`/api/scenarios/${id}/run`, { method: "POST" }),

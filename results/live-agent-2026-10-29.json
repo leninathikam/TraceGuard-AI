@@ -1,0 +1,253 @@
+{
+  "created_at": "2026-10-29T15:37:34.410832+00:00",
+  "protocol": "One generation, no resampling or forced defects",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "repairs": {},
+  "generation": {
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "attempts": 1,
+    "prompt_tokens": 250,
+    "completion_tokens": 1865,
+    "cost_usd": 0.0017535,
+    "latency_ms": 25694.22500010114,
+    "validation_errors": []
+  },
+  "run": {
+    "ok": true,
+    "agent_exit_code": 0,
+    "acceptance_passed": true,
+    "checks": [
+      {
+        "name": "test_visible:test_hours_and_minutes",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_visible:test_hours_only",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_visible:test_invalid_input_raises",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_visible:test_seconds",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_all_units",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_empty_raises",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_minutes_only",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_trailing_garbage_raises",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_unknown_unit_raises",
+        "passed": true,
+        "detail": "ok"
+      },
+      {
+        "name": "test_hidden:test_zero",
+        "passed": true,
+        "detail": "ok"
+      }
+    ],
+    "trace": {
+      "id": "",
+      "workflow": "Nemotron live coding agent",
+      "scenario": "coding_agent",
+      "task": "Implement parse_duration(text) in solution.py. It returns total seconds for strings such as '1h30m', '45s', '2h' and '1h5m10s', and raises ValueError for invalid input.",
+      "final_status": "success",
+      "created_at": "2026-10-29T15:38:05.637831+00:00",
+      "metadata": {
+        "editable_files": [
+          "solution.py"
+        ],
+        "code_files": [
+          "solution.py"
+        ],
+        "agent_description": "Generates solution.py for the task, writes it, and runs test_visible.py.",
+        "captured_files": {
+          "solution.py": "import re\n\n_pattern = re.compile(r'^(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?$')\n\n\ndef parse_duration(text: str) -> int:\n    \"\"\"Parse a duration string and return total seconds.\n    \n    Accepts strings like '1h30m', '45s', '2h', '1h5m10s'.\n    Raises ValueError for malformed input.\n    \"\"\"\n    if not isinstance(text, str):\n        raise ValueError(\"Input must be a string\")\n    match = _pattern.fullmatch(text)\n    if not match:\n        raise ValueError(f\"Invalid duration format: {text!r}\")\n    if match.group(0) == \"\":\n        raise ValueError(\"Empty duration string\")\n    hours = int(match.group(1)) if match.group(1) else 0\n    minutes = int(match.group(2)) if match.group(2) else 0\n    seconds = int(match.group(3)) if match.group(3) else 0\n    return hours * 3600 + minutes * 60 + seconds\n"
+        },
+        "agent_origin": "live_nebius_generation",
+        "generation": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "attempts": 1,
+          "prompt_tokens": 250,
+          "completion_tokens": 1865,
+          "cost_usd": 0.0017535,
+          "latency_ms": 25694.22500010114,
+          "validation_errors": []
+        },
+        "served_model": "nvidia/nemotron-3-super-120b-a12b",
+        "replay_semantics": "Frozen generated artifact; replay does not resample the LLM."
+      },
+      "events": [
+        {
+          "id": "e001",
+          "seq": 1,
+          "kind": "agent_start",
+          "name": "coding-agent",
+          "parent_id": null,
+          "input": {
+            "task": "Implement parse_duration(text) in solution.py. It returns total seconds for strings such as '1h30m', '45s', '2h' and '1h5m10s', and raises ValueError for invalid input."
+          },
+          "output": null,
+          "status": "ok",
+          "error": null,
+          "duration_ms": 0.0,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        },
+        {
+          "id": "e002",
+          "seq": 2,
+          "kind": "llm_call",
+          "name": "nebius_generate_code",
+          "parent_id": null,
+          "input": {
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a coding agent. Implement the user's task. Return JSON with a single string field code containing solution.py. Use pure Python; only import re if needed. No file access, introspection, network, or test manipulation."
+              },
+              {
+                "role": "user",
+                "content": "Implement parse_duration(text) in solution.py. Return total seconds for non-empty strings containing optional integer hours, minutes and seconds in that order, e.g. '1h30m', '45s', '2h', '1h5m10s'. Raise ValueError for invalid input.\nVisible tests:\nimport unittest\n\nfrom solution import parse_duration\n\n\nclass VisibleTests(unittest.TestCase):\n    def test_hours_and_minutes(self):\n        self.assertEqual(parse_duration(\"1h30m\"), 5400)\n\n    def test_seconds(self):\n        self.assertEqual(parse_duration(\"45s\"), 45)\n\n    def test_hours_only(self):\n        self.assertEqual(parse_duration(\"2h\"), 7200)\n\n    def test_invalid_input_raises(self):\n        with self.assertRaises(ValueError):\n            parse_duration(\"soon\")\n"
+              }
+            ]
+          },
+          "output": {
+            "code": "import re\n\n_pattern = re.compile(r'^(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?$')\n\n\ndef parse_duration(text: str) -> int:\n    \"\"\"Parse a duration string and return total seconds.\n    \n    Accepts strings like '1h30m', '45s', '2h', '1h5m10s'.\n    Raises ValueError for malformed input.\n    \"\"\"\n    if not isinstance(text, str):\n        raise ValueError(\"Input must be a string\")\n    match = _pattern.fullmatch(text)\n    if not match:\n        raise ValueError(f\"Invalid duration format: {text!r}\")\n    if match.group(0) == \"\":\n        raise ValueError(\"Empty duration string\")\n    hours = int(match.group(1)) if match.group(1) else 0\n    minutes = int(match.group(2)) if match.group(2) else 0\n    seconds = int(match.group(3)) if match.group(3) else 0\n    return hours * 3600 + minutes * 60 + seconds\n",
+            "raw_response": "{\"code\": \"import re\\n\\n_pattern = re.compile(r'^(?:(\\\\d+)h)?(?:(\\\\d+)m)?(?:(\\\\d+)s)?$')\\n\\n\\ndef parse_duration(text: str) -> int:\\n    \\\"\\\"\\\"Parse a duration string and return total seconds.\\n    \\n    Accepts strings like '1h30m', '45s', '2h', '1h5m10s'.\\n    Raises ValueError for malformed input.\\n    \\\"\\\"\\\"\\n    if not isinstance(text, str):\\n        raise ValueError(\\\"Input must be a string\\\")\\n    match = _pattern.fullmatch(text)\\n    if not match:\\n        raise ValueError(f\\\"Invalid duration format: {text!r}\\\")\\n    if match.group(0) == \\\"\\\":\\n        raise ValueError(\\\"Empty duration string\\\")\\n    hours = int(match.group(1)) if match.group(1) else 0\\n    minutes = int(match.group(2)) if match.group(2) else 0\\n    seconds = int(match.group(3)) if match.group(3) else 0\\n    return hours * 3600 + minutes * 60 + seconds\\n\"}"
+          },
+          "status": "ok",
+          "error": null,
+          "duration_ms": 25694.22500010114,
+          "tokens_in": 250,
+          "tokens_out": 1865,
+          "attributes": {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "served_model": "nvidia/nemotron-3-super-120b-a12b"
+          }
+        },
+        {
+          "id": "e003",
+          "seq": 3,
+          "kind": "tool_call",
+          "name": "write_file",
+          "parent_id": null,
+          "input": {
+            "path": "solution.py",
+            "bytes": 790
+          },
+          "output": null,
+          "status": "ok",
+          "error": null,
+          "duration_ms": 0.0,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        },
+        {
+          "id": "e004",
+          "seq": 4,
+          "kind": "tool_result",
+          "name": "write_file",
+          "parent_id": "e003",
+          "input": {},
+          "output": {
+            "written": true
+          },
+          "status": "ok",
+          "error": null,
+          "duration_ms": 0.0,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        },
+        {
+          "id": "e005",
+          "seq": 5,
+          "kind": "test_run",
+          "name": "test_visible",
+          "parent_id": null,
+          "input": {
+            "command": "python -m unittest test_visible"
+          },
+          "output": {
+            "total": 4,
+            "failed": 0,
+            "passed": 4,
+            "failures": [],
+            "log": "test_hours_and_minutes (test_visible.VisibleTests.test_hours_and_minutes) ... ok\ntest_hours_only (test_visible.VisibleTests.test_hours_only) ... ok\ntest_invalid_input_raises (test_visible.VisibleTests.test_invalid_input_raises) ... ok\ntest_seconds (test_visible.VisibleTests.test_seconds) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+          },
+          "status": "ok",
+          "error": null,
+          "duration_ms": 92.513,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        },
+        {
+          "id": "e006",
+          "seq": 6,
+          "kind": "output",
+          "name": "final_answer",
+          "parent_id": null,
+          "input": {},
+          "output": {
+            "text": "4/4 visible tests passing."
+          },
+          "status": "ok",
+          "error": null,
+          "duration_ms": 0.0,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        },
+        {
+          "id": "e007",
+          "seq": 7,
+          "kind": "agent_end",
+          "name": "coding-agent",
+          "parent_id": null,
+          "input": {},
+          "output": {
+            "status": "success"
+          },
+          "status": "ok",
+          "error": null,
+          "duration_ms": 0.0,
+          "tokens_in": 0,
+          "tokens_out": 0,
+          "attributes": {}
+        }
+      ]
+    },
+    "stdout": "",
+    "stderr": "",
+    "duration_ms": 6796.229100087658,
+    "sandbox": "subprocess",
+    "error": null
+  },
+  "repair_note": "No repair attempted: healthy generation or infrastructure failure."
+}

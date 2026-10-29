@@ -53,6 +53,9 @@ flowchart LR
 4. **Verify** — edits are applied to a throwaway copy of the agent workspace, the agent is replayed, and
    the scenario's acceptance checks run. Status is `validated` only if every check passes, nothing that
    passed before now fails, and the detectors find nothing in the new trace.
+5. **Causal Ablation & Export** — multi-edit patches undergo leave-one-out causal ablation testing to
+   prove which edits were causally necessary to fix the baseline checks. Validated repairs export an
+   executable pytest regression witness (`test_traceguard_regression.py`) with SHA-256 evidence hashing.
 
 ### Where NVIDIA Nemotron and Nebius Token Factory are used
 
@@ -177,8 +180,11 @@ Benchmark: `cd backend && NEBIUS_API_KEY=... python -m traceguard.benchmark --mo
 | POST | `/api/traces` · `/api/traces/otlp` | Ingest a trace (native or OTLP JSON) |
 | GET | `/api/traces` · `/api/traces/{id}` | List traces / full detail with findings, diagnoses, verifications |
 | POST | `/api/traces/{id}/diagnose` | `{"mode": "rules" \| "model" \| "hybrid"}` |
-| POST | `/api/diagnoses/{id}/verify` | Run the Verified Repair Loop |
-| POST | `/api/evaluations` · GET `/api/evaluations/latest` | Run / read the benchmark |
+| POST | `/api/diagnoses/{id}/verify` | Run the Verified Repair Loop (includes causal ablation) |
+| POST | `/api/agents/coding/run` | Generate and run a live Nemotron coding agent on Token Factory |
+| GET | `/api/traces/{id}/evidence` | Export full trace and verification evidence JSON |
+| GET | `/api/diagnoses/{id}/regression-test` | Download executable standalone pytest regression witness |
+| POST | `/api/evaluations` · GET `/api/evaluations/latest` | Run / read the benchmark (auto-loads upgraded results) |
 | GET | `/api/usage` | Tokens, cost and latency per model |
 
 ## Repository layout

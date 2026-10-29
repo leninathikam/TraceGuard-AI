@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -24,6 +24,8 @@ from .scenarios import SCENARIOS
 from .schema import Trace
 from .store import Store
 from .verify import verify_repair
+from .live_agent import run_live_agent
+from .evidence import regression_test
 
 app = FastAPI(title="TraceGuard AI", version=__version__)
 store = Store()
@@ -40,6 +42,28 @@ def ingest(trace: Trace, source: str) -> dict[str, Any]:
     store.set_findings(trace.id, findings)
     return {"trace_id": trace.id, "finding_count": len(findings),
             "categories": sorted({f.category.value for f in findings})}
+
+
+class SandboxModeRequest(BaseModel):
+    mode: Literal["subprocess", "docker"]
+
+
+@app.get("/api/sandbox/status")
+def sandbox_status() -> dict[str, Any]:
+    from .sandbox import is_docker_available, _sandbox_mode
+    avail, detail = is_docker_available()
+    return {
+        "current_mode": _sandbox_mode(),
+        "docker_available": avail,
+        "docker_detail": detail,
+        "image": os.environ.get("TRACEGUARD_SANDBOX_IMAGE", "python:3.12-slim"),
+    }
+
+
+@app.post("/api/sandbox/mode")
+def set_sandbox_mode(req: SandboxModeRequest) -> dict[str, Any]:
+    os.environ["TRACEGUARD_SANDBOX"] = req.mode
+    return sandbox_status()
 
 
 @app.get("/api/health")
@@ -80,6 +104,21 @@ def run(scenario_id: str) -> dict[str, Any]:
         raise HTTPException(500, f"scenario produced no trace: {result.error or result.stderr[-300:]}")
     return {**ingest(result.trace, "scenario"),
             "acceptance": [c.model_dump() for c in result.checks]}
+
+
+@app.post('/api/agents/coding/run')
+def run_coding_agent() -> dict[str, Any]:
+    c = client()
+    try:
+        result, info = run_live_agent(c)
+    except NebiusError as exc:
+        store.log_llm_call('agent_generation', None, getattr(exc, 'info', None), c.model, False, str(exc))
+        raise HTTPException(400 if isinstance(exc, NebiusNotConfigured) else 502, str(exc))
+    store.log_llm_call('agent_generation', None, info, c.model, result.ok, result.error)
+    if result.trace is None:
+        raise HTTPException(502, result.error or 'Generated agent produced no trace')
+    return {**ingest(result.trace, 'live_agent'), 'acceptance_passed': result.acceptance_passed,
+            'acceptance': [check.model_dump() for check in result.checks]}
 
 
 @app.post("/api/traces")
@@ -159,6 +198,30 @@ def verify(diagnosis_id: str) -> dict[str, Any]:
     store.add_diagnosis(d)
     store.add_verification(v)
     return v.model_dump(mode="json")
+
+
+@app.get('/api/traces/{trace_id}/evidence')
+def export_evidence(trace_id: str) -> Response:
+    import json
+    detail = trace_detail(trace_id)
+    return Response(json.dumps(detail, indent=2), media_type='application/json',
+                    headers={'Content-Disposition': 'attachment; filename="traceguard-evidence.json"'})
+
+
+@app.get('/api/diagnoses/{diagnosis_id}/regression-test')
+def export_regression(diagnosis_id: str) -> Response:
+    d = store.get_diagnosis(diagnosis_id)
+    if not d:
+        raise HTTPException(404, 'diagnosis not found')
+    versions = [v for v in store.verifications_for(d.trace_id) if v.diagnosis_id == d.id]
+    if not versions:
+        raise HTTPException(409, 'Verify the repair before exporting a regression test')
+    try:
+        source = regression_test(store.get_trace(d.trace_id), d, versions[0])
+    except ValueError as exc:
+        raise HTTPException(409, str(exc))
+    return Response(source, media_type='text/x-python',
+                    headers={'Content-Disposition': 'attachment; filename="test_traceguard_regression.py"'})
 
 
 class EvalRequest(BaseModel):

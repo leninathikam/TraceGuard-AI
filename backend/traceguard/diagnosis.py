@@ -8,7 +8,7 @@ from typing import Any, Literal
 from .detectors import primary_finding, run_detectors
 from .nebius import Completion, NebiusClient, NebiusError, extract_json
 from .sandbox import RepairRejected, apply_edits
-from .scenarios import SCENARIOS
+from .scenarios import SCENARIOS, for_trace
 from .schema import (
     Diagnosis,
     FailureCategory,
@@ -226,7 +226,7 @@ def validate_model_output(trace: Trace, data: dict[str, Any]) -> tuple[dict[str,
         proposal = None
     if proposal and proposal.edits and trace.scenario in SCENARIOS:
         try:
-            apply_edits(SCENARIOS[trace.scenario], proposal.edits)
+            apply_edits(for_trace(trace), proposal.edits)
         except RepairRejected as exc:
             errors.append(f"repair edit rejected: {exc}")
     if not isinstance(data.get("verification_procedure"), list):
@@ -235,7 +235,7 @@ def validate_model_output(trace: Trace, data: dict[str, Any]) -> tuple[dict[str,
 
 
 def scenario_files(trace: Trace) -> dict[str, str]:
-    scenario = SCENARIOS.get(trace.scenario or "")
+    scenario = for_trace(trace)
     return {p: scenario.read(p) for p in scenario.context_files} if scenario else {}
 
 

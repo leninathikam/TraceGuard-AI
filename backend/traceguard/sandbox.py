@@ -93,6 +93,44 @@ def _sandbox_mode() -> str:
     return os.environ.get("TRACEGUARD_SANDBOX", "subprocess")
 
 
+def is_docker_available() -> tuple[bool, str]:
+    """Check if Docker daemon is responsive."""
+    try:
+        res = subprocess.run(["docker", "info"], capture_output=True, text=True, timeout=5)
+        if res.returncode == 0:
+            return True, "Docker engine active"
+        first_err = (res.stderr.strip().splitlines() or ["Docker daemon not responding"])[0]
+        return False, first_err
+    except FileNotFoundError:
+        return False, "Docker CLI not found on PATH"
+    except Exception as exc:
+        return False, str(exc)
+
+
+def docker_mount_path(path: Path) -> str:
+    """Format path for Docker -v volume mount across Windows and POSIX."""
+    resolved = str(path.resolve()).replace("\\", "/")
+    return f"{resolved}:/ws"
+
+
+def build_docker_cmd(args: list[str], cwd: Path) -> list[str]:
+    """Build hardened Docker run command for isolated replay."""
+    image = os.environ.get("TRACEGUARD_SANDBOX_IMAGE", "python:3.12-slim")
+    mount = docker_mount_path(cwd)
+    return [
+        "docker", "run", "--rm",
+        "--network", "none",
+        "--read-only",
+        "--tmpfs", "/tmp:size=32m",
+        "--memory", os.environ.get("TRACEGUARD_DOCKER_MEMORY", "256m"),
+        "--cpus", os.environ.get("TRACEGUARD_DOCKER_CPUS", "1"),
+        "--pids-limit", "64",
+        "-v", mount,
+        "-w", "/ws",
+        image, "python", "-E", "-s", *args,
+    ]
+
+
 def _clean_env() -> dict[str, str]:
     keep = ("PATH", "SYSTEMROOT", "TEMP", "TMP", "WINDIR", "COMSPEC", "PATHEXT")
     env = {k: os.environ[k] for k in keep if k in os.environ}
@@ -102,12 +140,7 @@ def _clean_env() -> dict[str, str]:
 
 def _run(args: list[str], cwd: Path, timeout: float, mode: str) -> subprocess.CompletedProcess:
     if mode == "docker":
-        image = os.environ.get("TRACEGUARD_SANDBOX_IMAGE", "python:3.12-slim")
-        cmd = [
-            "docker", "run", "--rm", "--network", "none", "--read-only",
-            "--tmpfs", "/tmp:size=16m", "--memory", "256m", "--cpus", "1", "--pids-limit", "64",
-            "--user", "65534:65534", "-v", f"{cwd}:/ws", "-w", "/ws", image, "python", "-E", "-s", *args,
-        ]
+        cmd = build_docker_cmd(args, cwd)
     else:
         cmd = [sys.executable, "-E", "-s", *args]
     return subprocess.run(
@@ -127,6 +160,8 @@ def run_scenario(
         ws = tmp / "ws"
         shutil.copytree(scenario.path, ws, ignore=shutil.ignore_patterns("__pycache__"))
         shutil.copy(SCENARIO_ROOT / "_tracer.py", ws / "_tracer.py")
+        for path, source in scenario.captured_files.items():
+            (ws / path).write_text(source, encoding="utf-8")
         for path, (_, after) in changed.items():
             (ws / path).write_text(after, encoding="utf-8")
 
@@ -141,6 +176,11 @@ def run_scenario(
         trace_file = ws / "trace.json"
         if trace_file.exists():
             trace = Trace.model_validate_json(trace_file.read_text(encoding="utf-8"))
+            if scenario.captured_files:
+                trace.metadata["captured_files"] = {
+                    p: changed[p][1] if p in changed else s
+                    for p, s in scenario.captured_files.items()
+                }
 
         checks: list[AcceptanceCheck] = []
         error = None
@@ -152,10 +192,17 @@ def run_scenario(
             try:
                 acc = _run(["acceptance.py"], ws, timeout, mode)
                 checks = [AcceptanceCheck(**c) for c in json.loads(acc.stdout)]
+                if acc.returncode != 0:
+                    error = f"acceptance crashed (exit {acc.returncode}): {acc.stderr[-300:]}"
+                elif not checks or len({c.name for c in checks}) != len(checks):
+                    error = "acceptance must emit non-empty, uniquely named checks"
             except subprocess.TimeoutExpired:
                 error = f"acceptance exceeded {timeout}s timeout"
-            except (json.JSONDecodeError, TypeError) as exc:
+            except (ValueError, TypeError) as exc:
                 error = f"acceptance output unreadable: {exc}; stderr: {acc.stderr[-300:]}"
+
+        if trace is None and error is None:
+            error = "agent produced no execution trace"
 
         return SandboxRun(
             ok=error is None,

@@ -49,3 +49,13 @@ def test_rules_evaluation_runs_and_skips_model_modes(monkeypatch):
     r = http.post("/api/evaluations", json={"modes": ["rules", "hybrid"], "include_repairs": False}).json()
     assert "rules" in r["diagnosis"] and "hybrid" in r["skipped"]
     assert http.get("/api/evaluations/latest").json()["id"] == r["id"]
+
+
+def test_sandbox_status_and_mode_endpoints():
+    http = TestClient(api.app)
+    status = http.get("/api/sandbox/status").json()
+    assert "current_mode" in status and "docker_available" in status
+    r = http.post("/api/sandbox/mode", json={"mode": "docker"}).json()
+    assert r["current_mode"] == "docker"
+    r = http.post("/api/sandbox/mode", json={"mode": "subprocess"}).json()
+    assert r["current_mode"] == "subprocess"

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -15,13 +15,29 @@ class Scenario:
     # Files the diagnosis model may read. Held-out tests are deliberately excluded.
     context_files: tuple[str, ...]
     code_files: tuple[str, ...] = ()
+    captured_files: dict[str, str] = field(default_factory=dict)
 
     @property
     def path(self) -> Path:
         return ROOT / self.id
 
     def read(self, name: str) -> str:
+        if name in self.captured_files:
+            return self.captured_files[name]
         return (self.path / name).read_text(encoding="utf-8")
+
+
+def for_trace(trace) -> Scenario | None:
+    """Resolve a captured artifact, never a client-supplied filesystem path."""
+    scenario = SCENARIOS.get(trace.scenario or "")
+    captured = trace.metadata.get("captured_files", {})
+    if not scenario or not captured:
+        return scenario
+    from ..sandbox import apply_edits
+    from ..schema import FileEdit
+    edits = [FileEdit(path=p, find="", replace=s) for p, s in captured.items()]
+    apply_edits(scenario, edits)
+    return replace(scenario, captured_files=dict(captured))
 
 
 SCENARIOS: dict[str, Scenario] = {

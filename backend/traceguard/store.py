@@ -155,5 +155,19 @@ class Store:
     def latest_evaluation(self) -> dict[str, Any] | None:
         rows = self._rows("SELECT id, created_at, body FROM evaluations ORDER BY created_at DESC LIMIT 1")
         if not rows:
+            base_dir = Path(__file__).resolve()
+            candidates = [
+                base_dir.parents[2] / "results" / "evaluation-2026-10-29-upgrade.json",
+                base_dir.parents[1] / "results" / "evaluation-2026-10-29-upgrade.json",
+                base_dir.parents[2] / "results" / "evaluation.json",
+                base_dir.parents[1] / "results" / "evaluation.json",
+            ]
+            for candidate in candidates:
+                if candidate.is_file():
+                    try:
+                        data = json.loads(candidate.read_text(encoding="utf-8"))
+                        return {"id": f"ev_{candidate.stem}", "created_at": data.get("created_at", utcnow()), **data}
+                    except Exception:
+                        pass
             return None
         return {"id": rows[0]["id"], "created_at": rows[0]["created_at"], **json.loads(rows[0]["body"])}

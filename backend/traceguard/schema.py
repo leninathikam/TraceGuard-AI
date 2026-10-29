@@ -180,3 +180,6 @@ class Verification(BaseModel):
     still_failing: list[str] = Field(default_factory=list)
     remaining_findings: list[Finding] = Field(default_factory=list)
     repaired_trace_id: str | None = None
+    intervention_tests: list[dict[str, Any]] = Field(default_factory=list)
+    evidence_hashes: dict[str, str] = Field(default_factory=dict)
+    causal_scope: str = "Not tested."

@@ -1,3 +1,4 @@
+import { speak } from "../VoiceOperator";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { api, Diagnosis, Health, TraceDetail, TraceEvent, Verification } from "../api";
 import { Badge, Card, Diff, Json, Status, label, ms, usd } from "../ui";
@@ -68,6 +69,9 @@ export default function TraceView({ id, health }: { id: string; health: Health |
           <a href="#/" className="dim small">← Workflows</a>
           <h2>{trace.workflow} <span className="mono dim small">{trace.id}</span></h2>
           <p className="dim">{trace.task}</p>
+          <a className="small" href={`/api/traces/${id}/evidence`} download>Download evidence JSON</a>
+          {trace.metadata.agent_origin === 'live_nebius_generation' &&
+            <p className="small dim">Live Nebius generation captured. Verification replays the frozen code artifact.</p>}
         </div>
       </div>
 
@@ -237,7 +241,17 @@ function DiagnosisView({ d, onHover }: { d: Diagnosis; onHover: (ids: string[]) 
         <Badge tone="muted">confidence: {d.confidence}</Badge>
       </div>
       {d.fallback_reason && <div className="alert warn small">{d.fallback_reason}</div>}
-      <p className="hypothesis">{d.root_cause_hypothesis}</p>
+      <div className="row" style={{ alignItems: "center", gap: "8px" }}>
+        <p className="hypothesis" style={{ margin: 0, flex: 1 }}>{d.root_cause_hypothesis}</p>
+        <button
+          className="ghost small"
+          onClick={() => speak(`Root cause hypothesis: ${d.root_cause_hypothesis}. Confidence is ${d.confidence}.`)}
+          style={{ padding: "2px 8px", fontSize: "11px", whiteSpace: "nowrap" }}
+          title="Listen to hypothesis spoken aloud"
+        >
+          🔊 Listen
+        </button>
+      </div>
       <div className="small" onMouseEnter={() => onHover(d.supporting_event_ids)} onMouseLeave={() => onHover([])}>
         <span className="dim">Evidence: </span>
         {d.supporting_event_ids.map((i) => <span key={i} className="mono chip">{i}</span>)}
@@ -271,6 +285,19 @@ function VerificationView({ v }: { v: Verification }) {
   return (
     <Card title={<>Replay results <Status value={v.status} /></>}>
       <p>{v.reason}</p>
+      {v.causal_scope && <p className="dim small">{v.causal_scope}</p>}
+      {!!v.intervention_tests?.length && <div className="stack tight">
+        <strong>Controlled interventions</strong>
+        {v.intervention_tests.map((test) => <p className="small" key={test.omitted_edit}>
+          Omit edit {test.omitted_edit + 1}{test.path ? ` (${test.path})` : ''}: <strong>{label(test.outcome)}</strong>
+          {test.restored_failures?.length ? ` — ${test.restored_failures.join(', ')}` : ''}
+          {test.error ? ` — ${test.error}` : ''}
+        </p>)}
+      </div>}
+      {v.status === 'validated' && <p><a href={`/api/diagnoses/${v.diagnosis_id}/regression-test`} download>
+        Download executable regression test</a></p>}
+      {v.evidence_hashes && <details><summary className="small">Workspace and oracle SHA-256 hashes</summary>
+        <Json value={v.evidence_hashes} /></details>}
       {names.length > 0 && (
         <table className="checks">
           <thead><tr><th>Acceptance check</th><th>Baseline</th><th>Repaired</th><th></th></tr></thead>
