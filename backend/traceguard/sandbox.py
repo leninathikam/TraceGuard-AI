@@ -132,8 +132,15 @@ def build_docker_cmd(args: list[str], cwd: Path) -> list[str]:
 
 
 def _clean_env() -> dict[str, str]:
-    keep = ("PATH", "SYSTEMROOT", "TEMP", "TMP", "WINDIR", "COMSPEC", "PATHEXT")
+    keep = (
+        "PATH", "SYSTEMROOT", "TEMP", "TMP", "WINDIR", "COMSPEC", "PATHEXT",
+        "LD_LIBRARY_PATH", "LIBRARY_PATH", "HOME", "LANG", "LC_ALL", "USER",
+    )
     env = {k: os.environ[k] for k in keep if k in os.environ}
+    if "LD_LIBRARY_PATH" not in env and sys.platform.startswith("linux"):
+        py_lib = Path(sys.executable).resolve().parents[1] / "lib"
+        if py_lib.is_dir():
+            env["LD_LIBRARY_PATH"] = str(py_lib)
     env.update({"PYTHONHASHSEED": "0", "PYTHONDONTWRITEBYTECODE": "1", "PYTHONIOENCODING": "utf-8"})
     return env
 
