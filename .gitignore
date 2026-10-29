@@ -5,7 +5,7 @@ data/
 .env
 .venv/
 frontend/node_modules/
-frontend/dist/
+# frontend/dist/ tracked for zero-buildpack deploys
 frontend/*.tsbuildinfo
 .pytest_cache/
 docs/demo-script.md
