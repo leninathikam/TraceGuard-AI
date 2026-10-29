@@ -19,4 +19,4 @@ USER app
 WORKDIR /app/backend
 EXPOSE 8000
 HEALTHCHECK CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"
-CMD ["uvicorn", "traceguard.api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn traceguard.api:app --host 0.0.0.0 --port ${PORT:-8000}"]
