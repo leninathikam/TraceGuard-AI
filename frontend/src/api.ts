@@ -157,6 +157,8 @@ export const api = {
   latestEvaluation: () => request<Evaluation | null>("/api/evaluations/latest"),
   runEvaluation: (modes: string[]) =>
     request<Evaluation>("/api/evaluations", { method: "POST", body: JSON.stringify({ modes }) }),
+  scenarioFiles: (id: string) => request<CodebaseFile[]>(`/api/scenarios/${id}/files`),
+  usage: () => request<UsageSummary>("/api/usage"),
 };
 
 export type Prf = { precision: number | null; recall: number | null; f1: number | null; tp: number; fp: number; fn: number };
@@ -188,4 +190,41 @@ export type Evaluation = {
   diagnosis: Record<string, ModeScore>;
   repairs: Record<string, RepairScore>;
   skipped: Record<string, string>;
+};
+
+
+export type CodebaseFile = {
+  path: string;
+  size_bytes: number;
+  line_count: number;
+  is_editable: boolean;
+  is_context: boolean;
+  is_test: boolean;
+  content: string;
+};
+
+export type UsageSummary = {
+  by_model: {
+    model: string;
+    n: number;
+    ok: number;
+    pt: number;
+    ct: number;
+    cost: number;
+    lat: number;
+  }[];
+  recent: {
+    id: number;
+    created_at: string;
+    purpose: string;
+    trace_id: string | null;
+    model: string;
+    attempts: number;
+    prompt_tokens: number;
+    completion_tokens: number;
+    cost_usd: number;
+    latency_ms: number;
+    ok: number;
+    error: string | null;
+  }[];
 };

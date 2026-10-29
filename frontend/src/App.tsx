@@ -4,6 +4,9 @@ import { api, Health, SandboxStatus } from "./api";
 import Overview from "./pages/Overview";
 import TraceView from "./pages/TraceView";
 import EvaluationPage from "./pages/Evaluation";
+import CodebaseExplorer from "./pages/CodebaseExplorer";
+import CausalLab from "./pages/CausalLab";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 function useHashRoute() {
   const [hash, setHash] = useState(window.location.hash || "#/");
@@ -39,6 +42,9 @@ export default function App() {
   const traceMatch = route.match(/^\/trace\/(.+)$/);
   let page = <Overview />;
   if (traceMatch) page = <TraceView id={traceMatch[1]} health={health} />;
+  else if (route.startsWith("/codebase")) page = <CodebaseExplorer />;
+  else if (route.startsWith("/causal-lab")) page = <CausalLab />;
+  else if (route.startsWith("/analytics")) page = <AnalyticsPage />;
   else if (route.startsWith("/evaluation")) page = <EvaluationPage health={health} />;
 
   return (
@@ -47,8 +53,11 @@ export default function App() {
         <a href="#/" className="brand">
           <span className="logo">◆</span> TraceGuard <span className="dim">AI</span>
         </a>
-        <a href="#/" className={!traceMatch && !route.startsWith("/evaluation") ? "active" : ""}>Workflows</a>
-        <a href="#/evaluation" className={route.startsWith("/evaluation") ? "active" : ""}>Evaluation</a>
+        <a href="#/" className={route === "/" || route === "" ? "active" : ""}>Workflows</a>
+        <a href="#/codebase" className={route.startsWith("/codebase") ? "active" : ""}>Codebases</a>
+        <a href="#/causal-lab" className={route.startsWith("/causal-lab") ? "active" : ""}>Causal Lab</a>
+        <a href="#/analytics" className={route.startsWith("/analytics") ? "active" : ""}>Token Analytics</a>
+        <a href="#/evaluation" className={route.startsWith("/evaluation") ? "active" : ""}>Evaluation (92.3%)</a>
         <VoiceOperator />
         <div className="spacer" />
         {sandbox && (

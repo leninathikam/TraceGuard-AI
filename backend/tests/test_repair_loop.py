@@ -7,8 +7,12 @@ from traceguard.scenarios import SCENARIOS
 from traceguard.schema import FileEdit
 from traceguard.verify import verify_repair
 
-EXPECTED_PRIMARY = {"tool_agent": "invalid_tool_arguments", "research_agent": "unsupported_claim",
-                    "coding_agent": "failing_test"}
+EXPECTED_PRIMARY = {
+    "tool_agent": "invalid_tool_arguments",
+    "research_agent": "unsupported_claim",
+    "coding_agent": "failing_test",
+    "payment_gateway": "failing_test",
+}
 
 
 @pytest.fixture(scope="module")

@@ -103,6 +103,31 @@ def scenarios() -> list[dict[str, Any]]:
              "editable_files": list(s.editable_files)} for s in SCENARIOS.values()]
 
 
+@app.get("/api/scenarios/{scenario_id}/files")
+def scenario_files(scenario_id: str) -> list[dict[str, Any]]:
+    scenario = SCENARIOS.get(scenario_id)
+    if not scenario:
+        raise HTTPException(404, "unknown scenario")
+    files = []
+    for p in sorted(scenario.path.rglob("*")):
+        if p.is_file() and "__pycache__" not in p.parts and p.name not in (".DS_Store", "trace.json", "result.json"):
+            rel = p.relative_to(scenario.path).as_posix()
+            try:
+                content = scenario.read(rel)
+            except Exception:
+                content = p.read_text(encoding="utf-8", errors="replace")
+            files.append({
+                "path": rel,
+                "size_bytes": len(content.encode("utf-8")),
+                "line_count": len(content.splitlines()),
+                "is_editable": rel in scenario.editable_files,
+                "is_context": rel in scenario.context_files,
+                "is_test": "test" in rel.lower(),
+                "content": content,
+            })
+    return files
+
+
 @app.post("/api/scenarios/{scenario_id}/run")
 def run(scenario_id: str) -> dict[str, Any]:
     scenario = SCENARIOS.get(scenario_id)

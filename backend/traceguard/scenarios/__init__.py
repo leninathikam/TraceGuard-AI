@@ -68,5 +68,19 @@ SCENARIOS: dict[str, Scenario] = {
             context_files=("solution.py", "test_visible.py"),
             code_files=("solution.py",),
         ),
+        Scenario(
+            id="payment_gateway",
+            title="D. Enterprise Codebase (Payment Gateway)",
+            summary="A multi-module financial services repository (gateway, models, services, ledger, test suites). The agent omitted idempotency key propagation in order checkout.",
+            editable_files=("services/order_service.py",),
+            context_files=(
+                "services/order_service.py",
+                "gateway/models.py",
+                "gateway/client.py",
+                "services/ledger.py",
+                "tests/test_compliance.py",
+            ),
+            code_files=("services/order_service.py",),
+        ),
     ]
 }

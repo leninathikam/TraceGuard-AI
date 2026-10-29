@@ -40,6 +40,24 @@ def parse_duration(text: str) -> int:
     hours, minutes, seconds = (int(g) if g else 0 for g in match.groups())
     return hours * 3600 + minutes * 60 + seconds
 ''')],
+    "payment_gateway": [FileEdit(
+        path="services/order_service.py",
+        find="""        # BUG: Fails to pass the idempotency_key to the ledger service (passes empty string)
+        self.ledger.record_transaction(
+            order_id=order_id,
+            idempotency_key="",
+            gross_amount=amount,
+            fee_amount=fee,
+            status=PaymentStatus.CAPTURED,
+        )""",
+        replace="""        self.ledger.record_transaction(
+            order_id=order_id,
+            idempotency_key=idempotency_key,
+            gross_amount=amount,
+            fee_amount=fee,
+            status=PaymentStatus.CAPTURED,
+        )""",
+    )],
 }
 
 
