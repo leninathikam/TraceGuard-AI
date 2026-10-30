@@ -114,7 +114,7 @@ export type TraceSummary = {
 };
 
 export type Scenario = { id: string; title: string; summary: string; editable_files: string[] };
-export type Health = { nebius_configured: boolean; model: string; sandbox: string; version: string };
+export type Health = { nebius_configured: boolean; model: string; fallback_model?: string | null; sandbox: string; version: string };
 export type SandboxStatus = {
   current_mode: "subprocess" | "docker";
   docker_available: boolean;

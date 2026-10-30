@@ -61,10 +61,12 @@ flowchart LR
 
 - Every model call goes to Token Factory's OpenAI-compatible endpoint
   `https://api.tokenfactory.nebius.com/v1/chat/completions` (`backend/traceguard/nebius.py`).
-- Default model: **`nvidia/nemotron-3-super-120b-a12b`** (switch with `TRACEGUARD_MODEL`, e.g.
-  `nvidia/Nemotron-3-Ultra-550b-a55b` for harder traces or `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` for
-  cheap triage). IDs are from the public Token Factory model catalog; `GET /api/nebius/check` lists the
-  NVIDIA models your key can actually see and confirms the configured one is served.
+- Default primary model: **`nvidia/nemotron-3-super-120b-a12b`** (switch with `TRACEGUARD_MODEL`).
+- Default fallback model: **`nvidia/Nemotron-3-Ultra-550b-a55b`** (switch with `TRACEGUARD_FALLBACK_MODEL`).
+  In anticipation of the November 9, 2026 deprecation of serverless `nemotron-3-super-120b-a12b`, TraceGuard
+  implements automated failover to NVIDIA's strongest 550B flagship model (`nvidia/Nemotron-3-Ultra-550b-a55b`)
+  upon API errors, deprecation responses, or validation failures. `GET /api/nebius/check` confirms both primary
+  and fallback models are served by Token Factory.
 - Nemotron does the semantic work rules can't: deciding which of several findings is the root cause,
   spotting fabricated IDs, wrong routes and claims that contradict their sources, and writing the
   concrete patch (JSON config edits or Python code) that the sandbox then tests.

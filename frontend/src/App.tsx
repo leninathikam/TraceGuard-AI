@@ -83,8 +83,9 @@ export default function App() {
         {healthError && <span className="badge bad">backend unreachable</span>}
         {health && (
           <span className={`badge ${health.nebius_configured ? "good" : "warn"}`}
-            title={health.nebius_configured ? "NEBIUS_API_KEY is set" : "Set NEBIUS_API_KEY to enable Nemotron diagnosis"}>
+            title={health.nebius_configured ? (health.fallback_model ? `Primary: ${health.model}\nFallback: ${health.fallback_model}` : `Model: ${health.model}`) : "Set NEBIUS_API_KEY to enable Nemotron diagnosis"}>
             {health.nebius_configured ? "Nebius Token Factory" : "Nebius key missing"} · {health.model}
+            {health.fallback_model && <span style={{ opacity: 0.8, fontSize: "0.85em", marginLeft: "4px" }}>(fallback: {health.fallback_model.split("/").pop()})</span>}
           </span>
         )}
       </nav>

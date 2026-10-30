@@ -61,7 +61,12 @@ def parse_duration(text: str) -> int:
 }
 
 
-def fake_client(responses: list[dict], calls: list | None = None) -> NebiusClient:
+def fake_client(
+    responses: list[dict],
+    calls: list | None = None,
+    fallback_model: str | None = None,
+    model: str = "nvidia/nemotron-3-super-120b-a12b",
+) -> NebiusClient:
     """A NebiusClient whose HTTP layer returns canned chat-completion bodies (tests only)."""
     queue = list(responses)
 
@@ -71,13 +76,28 @@ def fake_client(responses: list[dict], calls: list | None = None) -> NebiusClien
         item = queue.pop(0)
         return httpx.Response(item.get("status", 200), json=item.get("json", {}))
 
-    return NebiusClient(api_key="test-key", transport=httpx.MockTransport(handler), max_retries=2)
+    return NebiusClient(
+        api_key="test-key",
+        model=model,
+        transport=httpx.MockTransport(handler),
+        max_retries=2,
+        fallback_model=fallback_model,
+    )
 
 
-def completion(content: str, prompt_tokens: int = 1000, completion_tokens: int = 200) -> dict:
-    return {"json": {"model": "nvidia/nemotron-3-super-120b-a12b",
-                     "choices": [{"message": {"role": "assistant", "content": content}}],
-                     "usage": {"prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens}}}
+def completion(
+    content: str,
+    prompt_tokens: int = 1000,
+    completion_tokens: int = 200,
+    model: str = "nvidia/nemotron-3-super-120b-a12b",
+) -> dict:
+    return {
+        "json": {
+            "model": model,
+            "choices": [{"message": {"role": "assistant", "content": content}}],
+            "usage": {"prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens},
+        }
+    }
 
 
 @pytest.fixture

@@ -78,14 +78,20 @@ def set_sandbox_mode(req: SandboxModeRequest) -> dict[str, Any]:
 @app.get("/api/health")
 def health() -> dict[str, Any]:
     c = client()
-    return {"status": "ok", "version": __version__, "nebius_configured": c.configured,
-            "model": c.model, "base_url": c.base_url,
-            "sandbox": os.environ.get("TRACEGUARD_SANDBOX", "subprocess")}
+    return {
+        "status": "ok",
+        "version": __version__,
+        "nebius_configured": c.configured,
+        "model": c.model,
+        "fallback_model": c.fallback_model,
+        "base_url": c.base_url,
+        "sandbox": os.environ.get("TRACEGUARD_SANDBOX", "subprocess"),
+    }
 
 
 @app.get("/api/nebius/check")
 def nebius_check() -> dict[str, Any]:
-    """Live check: list Token Factory models and confirm the configured NVIDIA model is served."""
+    """Live check: list Token Factory models and confirm configured NVIDIA models are served."""
     c = client()
     try:
         models = c.list_models()
@@ -94,7 +100,13 @@ def nebius_check() -> dict[str, Any]:
     except Exception as exc:
         raise HTTPException(502, f"Token Factory unreachable: {exc}")
     nvidia = sorted(m for m in models if m.lower().startswith("nvidia/"))
-    return {"model": c.model, "model_available": c.model in models, "nvidia_models": nvidia}
+    return {
+        "model": c.model,
+        "model_available": c.model in models,
+        "fallback_model": c.fallback_model,
+        "fallback_model_available": (c.fallback_model in models) if c.fallback_model else None,
+        "nvidia_models": nvidia,
+    }
 
 
 @app.get("/api/scenarios")

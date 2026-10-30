@@ -13,6 +13,23 @@ import httpx
 
 DEFAULT_BASE_URL = "https://api.tokenfactory.nebius.com/v1/"
 DEFAULT_MODEL = "nvidia/nemotron-3-super-120b-a12b"
+# NVIDIA's flagship strong model serving as production fallback
+DEFAULT_FALLBACK_MODEL = "nvidia/Nemotron-3-Ultra-550b-a55b"
+
+# Models deprecating on Token Factory Serverless endpoints by November 9, 2026:
+DEPRECATED_MODELS = {
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+    "zai-org/GLM-5.1",
+    "deepseek-ai/DeepSeek-V4-Pro",
+    "deepseek-ai/DeepSeek-V4-Flash-0731",
+    "deepseek-ai/DeepSeek-V4.1-Flash",
+    "Qwen/Qwen3.5-397B-A17B",
+    "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "moonshotai/Kimi-K2.6",
+    "moonshotai/Kimi-K2.7-Code",
+    "openbmb/MiniCPM-V-4_5",
+}
 
 # USD per million tokens (input, output), from the public Token Factory model catalog
 # (https://tokenfactory.nebius.com/model-catalog.md, retrieved 2026-10-25).
@@ -57,6 +74,9 @@ class NebiusClient:
         default_factory=lambda: os.environ.get("NEBIUS_BASE_URL", DEFAULT_BASE_URL)
     )
     model: str = field(default_factory=lambda: os.environ.get("TRACEGUARD_MODEL", DEFAULT_MODEL))
+    fallback_model: str | None = field(
+        default_factory=lambda: os.environ.get("TRACEGUARD_FALLBACK_MODEL", DEFAULT_FALLBACK_MODEL)
+    )
     timeout_s: float = field(
         default_factory=lambda: float(os.environ.get("TRACEGUARD_TIMEOUT_S", "120"))
     )
@@ -90,9 +110,12 @@ class NebiusClient:
         temperature: float = 0.1,
         max_tokens: int = 4096,
         json_mode: bool = True,
+        model: str | None = None,
+        allow_fallback: bool = True,
     ) -> Completion:
+        target_model = model or self.model
         body: dict[str, Any] = {
-            "model": self.model,
+            "model": target_model,
             "messages": messages,
             "temperature": temperature,
             "max_tokens": max_tokens,
@@ -119,14 +142,35 @@ class NebiusClient:
                     if resp.status_code in (429, 500, 502, 503, 504):
                         last_error = f"HTTP {resp.status_code}: {resp.text[:200]}"
                     elif resp.status_code >= 400:
-                        raise NebiusError(f"HTTP {resp.status_code}: {resp.text[:500]}")
+                        last_error = f"HTTP {resp.status_code}: {resp.text[:500]}"
+                        # Fatal client error (e.g. 404/410/400 model deprecated or invalid), do not retry same model
+                        break
                     else:
-                        return self._parse(resp.json(), start, attempt)
+                        return self._parse(resp.json(), start, attempt, model_name=target_model)
                 if attempt <= self.max_retries:
                     time.sleep(min(2**attempt, 8))
+
+        if allow_fallback and self.fallback_model and self.fallback_model != target_model:
+            try:
+                return self.chat(
+                    messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    json_mode=json_mode,
+                    model=self.fallback_model,
+                    allow_fallback=False,
+                )
+            except NebiusError as fb_exc:
+                raise NebiusError(
+                    f"Token Factory request failed for primary '{target_model}' ({last_error}) "
+                    f"and fallback '{self.fallback_model}' ({fb_exc})"
+                ) from fb_exc
+
         raise NebiusError(f"Token Factory request failed after retries: {last_error}")
 
-    def _parse(self, data: dict[str, Any], start: float, attempts: int) -> Completion:
+    def _parse(
+        self, data: dict[str, Any], start: float, attempts: int, model_name: str | None = None
+    ) -> Completion:
         try:
             message = data["choices"][0]["message"]
         except (KeyError, IndexError) as exc:
@@ -135,7 +179,7 @@ class NebiusClient:
         return Completion(
             content=message.get("content") or "",
             reasoning=message.get("reasoning_content") or "",
-            model=self.model,
+            model=model_name or self.model,
             raw_model_field=data.get("model", ""),
             prompt_tokens=int(usage.get("prompt_tokens", 0)),
             completion_tokens=int(usage.get("completion_tokens", 0)),

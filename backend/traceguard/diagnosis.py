@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from typing import Any, Literal
 
 from .detectors import primary_finding, run_detectors
@@ -267,8 +268,9 @@ def diagnose_with_model(
              + "\nReturn a corrected JSON object only."},
         ]
 
+    active_model = completions[-1].model if completions else client.model
     info = ModelCallInfo(
-        model=client.model,
+        model=active_model,
         attempts=len(completions),
         prompt_tokens=sum(c.prompt_tokens for c in completions),
         completion_tokens=sum(c.completion_tokens for c in completions),
@@ -309,8 +311,30 @@ def diagnose(trace: Trace, mode: Mode, client: NebiusClient | None = None) -> Di
     client = client or NebiusClient()
     try:
         diagnosis, _ = diagnose_with_model(trace, mode, client, findings if mode == "hybrid" else None)
+        if diagnosis.model_call and diagnosis.model_call.model != client.model:
+            diagnosis.fallback_reason = (
+                f"Primary model '{client.model}' failed over to NVIDIA fallback model '{diagnosis.model_call.model}'"
+            )
         return diagnosis
     except NebiusError as exc:
+        if (
+            client.fallback_model
+            and client.fallback_model != client.model
+            and (isinstance(exc, ModelDiagnosisInvalid) or client.fallback_model not in str(exc))
+        ):
+            try:
+                fallback_client = replace(client, model=client.fallback_model, fallback_model=None)
+                fb_diagnosis, _ = diagnose_with_model(
+                    trace, mode, fallback_client, findings if mode == "hybrid" else None
+                )
+                fb_diagnosis.fallback_reason = (
+                    f"Primary model '{client.model}' failed: {exc}; "
+                    f"recovered using NVIDIA fallback model '{client.fallback_model}'"
+                )
+                return fb_diagnosis
+            except NebiusError as fb_exc:
+                exc = fb_exc
+
         if mode == "model":
             raise
         fallback = diagnose_rules(trace, findings)
